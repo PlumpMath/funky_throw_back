@@ -36,13 +36,13 @@ func _process(delta):
 func _input(event):
 	if event.type == InputEvent.KEY and current_guess_timeout >= guess_timout:
 		var current_input = ""
-		if	event.scancode == KEY_UP:
+		if	event.is_action_released('ui_up'):
 			current_input = "up"
-		elif	event.scancode == KEY_DOWN:
+		elif	event.is_action_released('ui_down'):
 			current_input = "down"
-		elif	event.scancode == KEY_LEFT:
+		elif	event.is_action_released('ui_left'):
 			current_input = "left"
-		elif	event.scancode == KEY_RIGHT:
+		elif	event.is_action_released('ui_right'):
 			current_input = "right"	
 			
 		if(current_input != ""):
