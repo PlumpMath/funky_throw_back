@@ -8,10 +8,12 @@ enum GAME_STATE{
 	GAME_OVER
 }
 var current_state
-
 var current_move = -1
-
 var guess_timer
+
+var current_guess_timeout = 0
+
+export var guess_timout = .1
 
 func _ready():
 	guess_timer = get_node("guess_timer")
@@ -25,7 +27,27 @@ func _ready():
 
 	current_state = GAME_STATE.RUNNING
 	_next_move()
+	self.set_process_input(true)
+	self.set_process(true)
 	
+func _process(delta):
+	current_guess_timeout += delta
+
+func _input(event):
+	if event.type == InputEvent.KEY and current_guess_timeout >= guess_timout:
+		var current_input = ""
+		if	event.scancode == KEY_UP:
+			current_input = "up"
+		elif	event.scancode == KEY_DOWN:
+			current_input = "down"
+		elif	event.scancode == KEY_LEFT:
+			current_input = "left"
+		elif	event.scancode == KEY_RIGHT:
+			current_input = "right"	
+			
+		if(current_input != ""):
+			current_guess_timeout = 0
+			moves[current_move].guess_input(current_input)
 
 func _incorrect_guess():
 	_game_over()
@@ -43,8 +65,10 @@ func _correct_guess():
 	_next_move()
 	
 func _next_move():
-	current_move+=1
-	moves[current_move].connect("guess_timeout", self, "_time_up")
-	moves[current_move].connect("correct_guess", self, "_correct_guess")
-	moves[current_move].connect("incorrect_guess", self, "_incorrect_guess")
-	moves[current_move].start_guess_timer()
+	print("next move...")
+	if current_move + 1 < moves.size():
+		current_move+=1
+		moves[current_move].connect("guess_timeout", self, "_time_up")
+		moves[current_move].connect("correct_guess", self, "_correct_guess")
+		moves[current_move].connect("incorrect_guess", self, "_incorrect_guess")
+		moves[current_move].start_guess_timer()

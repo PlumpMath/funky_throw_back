@@ -5,6 +5,7 @@
 [node name="Node" type="Node"]
 
 script/script = ExtResource( 1 )
+guess_timout = 0.1
 
 [node name="guess_timer" type="Timer" parent="."]
 

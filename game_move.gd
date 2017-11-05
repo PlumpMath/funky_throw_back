@@ -17,7 +17,6 @@ class GameMove:
 		return self
 		
 	func start_guess_timer():
-		print("starting guess timer...")
 		guessed = false
 		
 		guess_timer.set_wait_time(guessTime)
@@ -26,7 +25,6 @@ class GameMove:
 		guess_timer.start()
 			
 	func _on_guess_timeout():
-		print('timer ended', guessed)
 		if !guessed:
 			emit_signal('guess_timeout')
 			
