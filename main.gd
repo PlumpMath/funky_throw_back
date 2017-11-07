@@ -1,37 +1,49 @@
 extends Node
 
+var current_move = -1
 var moves = []
+
+var current_dialogue = -1
+var dialogues = []
+
 enum GAME_STATE{
 	MENU,
-	RUNNING,
-	GAME_OVER
+	PLAYING,
+	GAME_OVER,
+	DIALOGUE
 }
 var current_state
-var current_move = -1
-var guess_timer
 
-var current_guess_timeout = 0
+
+var current_input_timeout = 0
 
 export var guess_timout = .1
 
-var levels = [preload('intro_level.gd').new()]
+var levels
 var current_level = 0
 
-func _ready():
-	
+var guess_timer
 
-	print('test')
+var dialogue_text
+
+func _ready():
+	dialogue_text = get_node('dialogue_text')
+
+	guess_timer = get_node("guess_timer")
+	levels = [preload('intro_level.gd').IntroLevel.new().setup(guess_timer)]
+	
 	moves = levels[current_level].moves
-	current_state = GAME_STATE.RUNNING
-	_next_move()
+	dialogues = levels[current_level].dialogue
+	start_dialogue_state()
+	
 	self.set_process_input(true)
 	self.set_process(true)
 	
 func _process(delta):
-	current_guess_timeout += delta
+	current_input_timeout += delta
 
 func _input(event):
-	if current_state == GAME_STATE.RUNNING and event.type == InputEvent.KEY and current_guess_timeout >= guess_timout:
+	if current_state == GAME_STATE.PLAYING and event.type == InputEvent.KEY and current_input_timeout >= guess_timout:
 		var current_input = ""
 		if	event.is_action_released('ui_up'):
 			current_input = "up"
@@ -43,8 +55,30 @@ func _input(event):
 			current_input = "right"	
 			
 		if(current_input != ""):
-			current_guess_timeout = 0
+			current_input_timeout = 0
 			moves[current_move].guess_input(current_input)
+	
+	elif current_state == GAME_STATE.DIALOGUE and event.type == InputEvent.KEY:
+		if	event.is_action_released('ui_interact'):
+			current_input_timeout = 0
+			_advance_dialogue()
+
+func start_dialogue_state():
+	current_state = GAME_STATE.DIALOGUE
+	current_dialogue = -1
+	_advance_dialogue()
+
+func start_playing_state():
+	current_state = GAME_STATE.PLAYING
+	current_move = -1	
+	_next_move()
+
+func _advance_dialogue():
+	if current_dialogue + 1 < dialogues.size():
+		current_dialogue+=1
+		dialogue_text.set_text(dialogues[current_dialogue])
+	else:
+		start_playing_state()
 
 func _incorrect_guess():
 	_game_over()
@@ -62,7 +96,6 @@ func _correct_guess():
 	_next_move()
 	
 func _next_move():
-	print("next move...")
 	if current_move + 1 < moves.size():
 		current_move+=1
 		moves[current_move].connect("guess_timeout", self, "_time_up")

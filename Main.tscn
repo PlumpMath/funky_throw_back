@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://dancer.png" type="Texture" id=2]
 [ext_resource path="res://intro_level.gd" type="Script" id=3]
+[ext_resource path="res://dialogue_font.fnt" type="BitmapFont" id=4]
 
 [sub_resource type="Animation" id=1]
 
@@ -97,15 +98,33 @@ autoplay = "camera_scroll"
 
 [node name="Sprite" type="Sprite" parent="main_character"]
 
-transform/pos = Vector2( 553.194, 272.829 )
+transform/pos = Vector2( 199.497, 271.469 )
 transform/scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 hframes = 2
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_character"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/character_idle = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "character_idle"
+
+[node name="temp_opp" type="Node" parent="."]
+
+[node name="Sprite" type="Sprite" parent="temp_opp"]
+
+transform/pos = Vector2( 806.224, 272.829 )
+transform/scale = Vector2( 5, 5 )
+texture = ExtResource( 2 )
+flip_h = true
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="temp_opp"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -122,11 +141,27 @@ autoplay = "character_idle"
 
 script/script = ExtResource( 3 )
 
-[node name="guess_timer" type="Timer" parent="levels/intro_level"]
+[node name="guess_timer" type="Timer" parent="."]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
+
+[node name="dialogue_text" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 79.0
+margin/top = 282.0
+margin/right = 962.0
+margin/bottom = 560.0
+custom_fonts/normal_font = ExtResource( 4 )
+bbcode/enabled = false
+bbcode/bbcode = "Test"
+visible_characters = -1
+percent_visible = 1.0
 
 
