@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://dancer.png" type="Texture" id=2]
+[ext_resource path="res://intro_level.gd" type="Script" id=3]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 
 resource/name = "camera_scroll"
 length = 4.0
-loop = true
+loop = false
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:transform/pos")
@@ -20,9 +21,8 @@ tracks/0/keys = {
 "values": [ Vector2( -50.3338, 250.309 ), Vector2( 1265.15, 250.309 ) ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=2]
 
-resource/name = "character_idle"
 length = 1.0
 loop = true
 step = 0.1
@@ -42,19 +42,12 @@ tracks/0/keys = {
 script/script = ExtResource( 1 )
 guess_timout = 0.1
 
-[node name="guess_timer" type="Timer" parent="."]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
 [node name="main_camera" type="Camera2D" parent="."]
 
 transform/pos = Vector2( 511.74, 299.613 )
 anchor_mode = 1
 rotating = false
-current = false
+current = true
 zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000
@@ -74,7 +67,7 @@ drag_margin/bottom = 0.2
 transform/pos = Vector2( 696.406, 250.309 )
 anchor_mode = 1
 rotating = false
-current = true
+current = false
 zoom = Vector2( 0.5, 0.5 )
 limit/left = -10000000
 limit/top = -10000000
@@ -94,7 +87,7 @@ drag_margin/bottom = 0.2
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/camera_scroll = SubResource( 2 )
+anims/camera_scroll = SubResource( 1 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -117,10 +110,23 @@ __meta__ = {
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/character_idle = SubResource( 1 )
+anims/character_idle = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "character_idle"
+
+[node name="levels" type="Node" parent="."]
+
+[node name="intro_level" type="Node" parent="levels"]
+
+script/script = ExtResource( 3 )
+
+[node name="guess_timer" type="Timer" parent="levels/intro_level"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
 
 

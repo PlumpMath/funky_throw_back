@@ -1,6 +1,5 @@
 extends Node
 
-const game_move = preload('game_move.gd').GameMove
 var moves = []
 enum GAME_STATE{
 	MENU,
@@ -15,16 +14,14 @@ var current_guess_timeout = 0
 
 export var guess_timout = .1
 
-func _ready():
-	guess_timer = get_node("guess_timer")
-	
-	moves = [
-		game_move.new().setup('up', 2, guess_timer),
-		game_move.new().setup('down', 2, guess_timer),
-		game_move.new().setup('left', 2, guess_timer),
-		game_move.new().setup('right', 2, guess_timer)
-	]
+var levels = [preload('intro_level.gd').new()]
+var current_level = 0
 
+func _ready():
+	
+
+	print('test')
+	moves = levels[current_level].moves
 	current_state = GAME_STATE.RUNNING
 	_next_move()
 	self.set_process_input(true)
