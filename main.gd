@@ -34,7 +34,7 @@ func _process(delta):
 	current_guess_timeout += delta
 
 func _input(event):
-	if event.type == InputEvent.KEY and current_guess_timeout >= guess_timout:
+	if current_state == GAME_STATE.RUNNING and event.type == InputEvent.KEY and current_guess_timeout >= guess_timout:
 		var current_input = ""
 		if	event.is_action_released('ui_up'):
 			current_input = "up"
