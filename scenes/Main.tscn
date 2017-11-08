@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=1]
 
-[ext_resource path="res://main.gd" type="Script" id=1]
-[ext_resource path="res://dancer.png" type="Texture" id=2]
-[ext_resource path="res://intro_level.gd" type="Script" id=3]
-[ext_resource path="res://dialogue_font.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://scripts/main.gd" type="Script" id=1]
+[ext_resource path="res://images/dancer.png" type="Texture" id=2]
+[ext_resource path="res://scripts/intro_level.gd" type="Script" id=3]
+[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=4]
 
 [sub_resource type="Animation" id=1]
 
