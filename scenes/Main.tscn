@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
-[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=2]
-[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=3]
-[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=4]
-[ext_resource path="res://images/dancer.png" type="Texture" id=5]
-[ext_resource path="res://scripts/intro_level.gd" type="Script" id=6]
+[ext_resource path="res://images/dancer.png" type="Texture" id=2]
+[ext_resource path="res://scripts/intro_level.gd" type="Script" id=3]
+[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=4]
+[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=6]
 
 [sub_resource type="Animation" id=1]
 
@@ -45,39 +45,6 @@ tracks/0/keys = {
 script/script = ExtResource( 1 )
 guess_timout = 0.1
 
-[node name="states" type="Node" parent="."]
-
-[node name="dialogue_state" type="Node" parent="states"]
-
-script/script = ExtResource( 2 )
-
-[node name="dialogue_text" type="RichTextLabel" parent="states/dialogue_state"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 79.0
-margin/top = 282.0
-margin/right = 962.0
-margin/bottom = 560.0
-custom_fonts/normal_font = ExtResource( 3 )
-bbcode/enabled = false
-bbcode/bbcode = "Test"
-visible_characters = -1
-percent_visible = 1.0
-
-[node name="play_repeat_state" type="Node" parent="states"]
-
-script/script = ExtResource( 4 )
-
-[node name="guess_timer" type="Timer" parent="states/play_repeat_state"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
 [node name="main_camera" type="Camera2D" parent="."]
 
 transform/pos = Vector2( 511.74, 299.613 )
@@ -100,6 +67,7 @@ drag_margin/bottom = 0.2
 
 [node name="scroll_camera" type="Camera2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 696.406, 250.309 )
 anchor_mode = 1
 rotating = false
@@ -131,11 +99,13 @@ autoplay = "camera_scroll"
 
 [node name="main_character" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="Sprite" type="Sprite" parent="main_character"]
 
 transform/pos = Vector2( 199.497, 271.469 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_character"]
@@ -151,11 +121,13 @@ autoplay = "character_idle"
 
 [node name="temp_opp" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="Sprite" type="Sprite" parent="temp_opp"]
 
 transform/pos = Vector2( 806.224, 272.829 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 flip_h = true
 hframes = 2
 
@@ -172,8 +144,43 @@ autoplay = "character_idle"
 
 [node name="levels" type="Node" parent="."]
 
+editor/display_folded = true
+
 [node name="intro_level" type="Node" parent="levels"]
 
+script/script = ExtResource( 3 )
+
+[node name="states" type="Node" parent="."]
+
+[node name="dialogue_state" type="Node" parent="states"]
+
+script/script = ExtResource( 4 )
+
+[node name="dialogue_text" type="RichTextLabel" parent="states/dialogue_state"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 79.0
+margin/top = 282.0
+margin/right = 962.0
+margin/bottom = 560.0
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode/enabled = false
+bbcode/bbcode = "Test"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="play_repeat_state" type="Node" parent="states"]
+
 script/script = ExtResource( 6 )
+
+[node name="guess_timer" type="Timer" parent="states/play_repeat_state"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
 
 
