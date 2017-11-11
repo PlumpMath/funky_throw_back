@@ -26,7 +26,7 @@ func _ready():
 	self.set_process(true)
 	
 func _input(event):
-	if(current_input_timeout >= guess_timout):
+	if(current_state != null and current_input_timeout >= guess_timout):
 		current_state.input(event)
 
 func _process(delta):

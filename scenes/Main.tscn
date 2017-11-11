@@ -155,6 +155,7 @@ script/script = ExtResource( 3 )
 [node name="dialogue_state" type="Node" parent="states"]
 
 script/script = ExtResource( 4 )
+character_timer = 0.05
 
 [node name="dialogue_text" type="RichTextLabel" parent="states/dialogue_state"]
 
@@ -171,6 +172,13 @@ bbcode/enabled = false
 bbcode/bbcode = "Test"
 visible_characters = -1
 percent_visible = 1.0
+
+[node name="dialogue_print_timer" type="Timer" parent="states/dialogue_state"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
 
 [node name="play_repeat_state" type="Node" parent="states"]
 
