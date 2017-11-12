@@ -1,6 +1,5 @@
 extends Node
 class IntroLevel:
-	const game_move = preload('game_move.gd').GameMove
 	
 	var dialogue = [
 		'Oh, man BRO.',
@@ -16,14 +15,7 @@ class IntroLevel:
 		'...'
 	]
 	
-	var moves
 	
-	func setup_moves(guess_timer):
-		moves = [
-			game_move.new().setup('up', 2, guess_timer),
-			game_move.new().setup('down', 2, guess_timer),
-			game_move.new().setup('left', 2, guess_timer),
-			game_move.new().setup('right', 2, guess_timer)
-		]
-		
-		return self
+	var move_time = 2
+	var move_playback_time = 1
+	var moves = [2, 2, 2, 4, 4, 5, 5]
