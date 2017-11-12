@@ -5,6 +5,7 @@ signal game_over
 
 onready var guess_timer = get_node("guess_timer")
 onready var playback_timer = get_node("playback_timer")
+onready var round_timer = get_node("round_timer")
 onready var arrow = get_node("arrow")
 onready var arrow_display_animation = get_node("arrow/displayAnimationPlayer")
 onready var player_arrow_position = get_node("player_arrow_position").get_pos()
@@ -21,6 +22,8 @@ var current_move_stage
 #position in the current move set
 var current_move_set
 
+var round_break_time = 2
+
 var current_move_playback_pos
 
 enum states{
@@ -34,6 +37,10 @@ var possible_moves = ['up', 'down', 'left', 'right']
 func _ready():
 	playback_timer.set_one_shot(true)
 	playback_timer.connect("timeout", self, "_playback_next_move")
+	
+	round_timer.set_one_shot(true)
+	round_timer.connect("timeout", self, "_next_round_timer_up")
+	round_timer.set_wait_time(round_break_time)
 
 func entry(level):
 	randomize()
@@ -70,7 +77,11 @@ func _game_over():
 
 func _correct_guess():
 	print('Correct Guess!')
+	display_arrow(player_arrow_position, moves[current_move_stage].direction)
 	_wait_for_next_move()
+	
+func _next_round_timer_up():
+	_set_over()
 
 func _incorrect_guess():
 	_game_over()
@@ -107,6 +118,7 @@ func _playback_next_move():
 		_wait_for_next_move()	
 
 func _wait_for_next_move():
+	print('waitForNextMove')
 	if current_move_stage + 1 < moves.size():
 		current_move_stage+=1
 		moves[current_move_stage].connect("guess_timeout", self, "_time_up")
@@ -114,7 +126,7 @@ func _wait_for_next_move():
 		moves[current_move_stage].connect("incorrect_guess", self, "_incorrect_guess")
 		moves[current_move_stage].start_guess_timer()
 	else:
-		_set_over()
+		round_timer.start()
 	
 func display_arrow(position, direction):
 	var rotation = 0

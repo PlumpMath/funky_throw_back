@@ -231,6 +231,13 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
+[node name="round_timer" type="Timer" parent="states/play_repeat_state"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [node name="arrow" type="Sprite" parent="states/play_repeat_state"]
 
 transform/pos = Vector2( 796.324, 79.2593 )
