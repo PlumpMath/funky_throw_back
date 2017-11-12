@@ -18,4 +18,4 @@ class IntroLevel:
 	
 	var move_time = 2
 	var move_playback_time = 1
-	var moves = [2, 2, 2, 4, 4, 5, 5]
+	var moves = [2, 2, 2, 4, 3, 3, 4, 2, 5, 4, 5, 5]
