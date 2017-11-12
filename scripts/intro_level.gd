@@ -2,17 +2,17 @@ extends Node
 class IntroLevel:
 	
 	var dialogue = [
-		'Oh, man BRO.',
-		'What do we have here?!',
-		'Looks like a CHUMP!!!',
-		'Well, chump? Why don\'t you say something?',
-		'OH I GET IT!',
-		'This dude thinks he\'s too good to talk to us.',
-		'Well you better GROOVE better thank you talk, CHUMP!'
+		"Oh, man BRO.",
+		"What do we have here?!",
+		"Looks like a CHUMP!!!",
+		"Well, chump? Why don\'t you say something?",
+		"OH I GET IT!",
+		"This dude thinks he\'s too good to talk to us.",
+		"Well you better GROOVE better thank you talk, CHUMP!"
 	]
 		
 	var post_dialogue = [
-		'...'
+		"..."
 	]
 	
 	

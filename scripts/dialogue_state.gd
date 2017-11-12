@@ -49,7 +49,7 @@ func _advance_dialogue():
 		exit()
 	
 func _advance_dialogue_char():
-	if _active and current_dialogue_char + 1 < dialogues[current_dialogue].length():
+	if _active and current_dialogue_char < dialogues[current_dialogue].length():
 		current_dialogue_char += 1
 		var current_string = ''
 		for i in range(0, current_dialogue_char, 1):
