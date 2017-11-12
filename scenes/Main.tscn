@@ -1,12 +1,15 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
-[ext_resource path="res://images/dancer.png" type="Texture" id=2]
-[ext_resource path="res://scripts/intro_level.gd" type="Script" id=3]
-[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=4]
-[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=5]
-[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=6]
-[ext_resource path="res://images/arrows.png" type="Texture" id=7]
+[ext_resource path="res://images/blank.png" type="Texture" id=2]
+[ext_resource path="res://images/dancer.png" type="Texture" id=3]
+[ext_resource path="res://images/spotlight.png" type="Texture" id=4]
+[ext_resource path="res://scripts/intro_level.gd" type="Script" id=5]
+[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=6]
+[ext_resource path="res://images/text-box.png" type="Texture" id=7]
+[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=9]
+[ext_resource path="res://images/arrows.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -39,6 +42,33 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "lights"
+length = 6.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("spotlight:transform/rot")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 2, 4 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -10.0, 40.0, 40.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("spotlight2:transform/rot")
+tracks/1/interp = 2
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.6, 4.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 4.0, 4.0, -40.0 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -79,6 +109,13 @@ tracks/0/keys = {
 
 script/script = ExtResource( 1 )
 guess_timout = 0.1
+
+[node name="background" type="Sprite" parent="."]
+
+transform/pos = Vector2( 516.143, 300.816 )
+transform/scale = Vector2( 16.2774, 9.76149 )
+texture = ExtResource( 2 )
+modulate = Color( 0.113281, 0.113281, 0.113281, 1 )
 
 [node name="main_camera" type="Camera2D" parent="."]
 
@@ -136,9 +173,9 @@ autoplay = "camera_scroll"
 
 [node name="Sprite" type="Sprite" parent="main_character"]
 
-transform/pos = Vector2( 201.167, 271.469 )
+transform/pos = Vector2( 201.167, 350 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_character"]
@@ -154,13 +191,11 @@ autoplay = "character_idle"
 
 [node name="temp_opp" type="Node" parent="."]
 
-editor/display_folded = true
-
 [node name="Sprite" type="Sprite" parent="temp_opp"]
 
-transform/pos = Vector2( 806.224, 272.829 )
+transform/pos = Vector2( 806.224, 350 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 flip_h = true
 hframes = 2
 
@@ -175,32 +210,82 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = "character_idle"
 
+[node name="scene" type="Node" parent="."]
+
+[node name="spotlight" type="Sprite" parent="scene"]
+
+visibility/blend_mode = 1
+transform/pos = Vector2( 57.6635, -46.0116 )
+transform/rot = 42.1071
+transform/scale = Vector2( 0.347994, 0.454554 )
+texture = ExtResource( 4 )
+offset = Vector2( 17.5135, 1249.97 )
+modulate = Color( 0.824219, 0.0354156, 0.405167, 0.650275 )
+
+[node name="spotlight2" type="Sprite" parent="scene"]
+
+visibility/blend_mode = 1
+transform/pos = Vector2( 830.168, -43.6952 )
+transform/rot = -13.2422
+transform/scale = Vector2( 0.24672, 0.408274 )
+texture = ExtResource( 4 )
+offset = Vector2( 17.8343, 1219.66 )
+modulate = Color( 0.193954, 0.537814, 0.871094, 0.650275 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="scene"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/lights = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "lights"
+
 [node name="levels" type="Node" parent="."]
 
 editor/display_folded = true
 
 [node name="intro_level" type="Node" parent="levels"]
 
-script/script = ExtResource( 3 )
+script/script = ExtResource( 5 )
 
 [node name="states" type="Node" parent="."]
 
 [node name="dialogue_state" type="Node" parent="states"]
 
-script/script = ExtResource( 4 )
+script/script = ExtResource( 6 )
 character_timer = 0.05
 
-[node name="dialogue_text" type="RichTextLabel" parent="states/dialogue_state"]
+[node name="dialogue_background" type="Patch9Frame" parent="states/dialogue_state"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 79.0
-margin/top = 282.0
-margin/right = 962.0
-margin/bottom = 560.0
-custom_fonts/normal_font = ExtResource( 5 )
+margin/left = 57.0
+margin/top = 450.0
+margin/right = 972.0
+margin/bottom = 589.0
+texture = ExtResource( 7 )
+patch_margin/left = 40
+patch_margin/top = 40
+patch_margin/right = 40
+patch_margin/bottom = 40
+
+[node name="dialogue_text" type="RichTextLabel" parent="states/dialogue_state"]
+
+rect/scale = Vector2( 0.7, 0.7 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 102.0
+margin/top = 471.0
+margin/right = 1281.0
+margin/bottom = 609.0
+custom_fonts/normal_font = ExtResource( 8 )
 bbcode/enabled = false
 bbcode/bbcode = "Test"
 visible_characters = -1
@@ -215,7 +300,7 @@ autostart = false
 
 [node name="play_repeat_state" type="Node" parent="states"]
 
-script/script = ExtResource( 6 )
+script/script = ExtResource( 9 )
 
 [node name="guess_timer" type="Timer" parent="states/play_repeat_state"]
 
@@ -242,7 +327,7 @@ autostart = false
 
 transform/pos = Vector2( 796.324, 79.2593 )
 transform/scale = Vector2( 2.36907, 2.36907 )
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 hframes = 9
 modulate = Color( 1, 1, 1, 0 )
 

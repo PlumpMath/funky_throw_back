@@ -10,6 +10,7 @@ export var character_timer = 0.05
 var _active = false
 
 onready var dialogue_text = get_node('dialogue_text')
+onready var dialogue_background = get_node('dialogue_background')
 onready var dialogue_print_timer = get_node('dialogue_print_timer')
 
 func _ready():
@@ -22,10 +23,13 @@ func entry(level):
 	_active = true
 	current_dialogue = -1
 	dialogues = level.dialogue
+	dialogue_background.show()
 	_advance_dialogue()
 	
 func exit():
 	_active = false
+	dialogue_background.hide()
+	dialogue_text.set_text('')
 	emit_signal('exit')
 	
 func input(event):
