@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://images/blank.png" type="Texture" id=2]
@@ -10,7 +10,8 @@
 [ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=9]
 [ext_resource path="res://images/arrows.png" type="Texture" id=10]
-[ext_resource path="res://audio/song1.wav" type="Sample" id=11]
+[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=11]
+[ext_resource path="res://audio/song1.wav" type="Sample" id=12]
 
 [sub_resource type="Animation" id=1]
 
@@ -110,7 +111,7 @@ samples/song1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 11 )
+"sample": ExtResource( 12 )
 }
 
 [node name="Node" type="Node"]
@@ -269,7 +270,6 @@ script/script = ExtResource( 5 )
 
 [node name="dialogue_state" type="Node" parent="states"]
 
-editor/display_folded = true
 script/script = ExtResource( 6 )
 character_timer = 0.05
 
@@ -378,6 +378,17 @@ transform/pos = Vector2( 198.893, 81.0307 )
 [node name="enemy_arrow_position" type="Node2D" parent="states/play_repeat_state"]
 
 transform/pos = Vector2( 812.762, 81.0307 )
+
+[node name="freestyle_node" type="Node" parent="states"]
+
+script/script = ExtResource( 11 )
+
+[node name="input_timer" type="Timer" parent="states/freestyle_node"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
 
 [node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
 

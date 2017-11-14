@@ -32,7 +32,7 @@ enum states{
 }
 var current_state
 
-var possible_moves = ['up', 'down', 'left', 'right']
+const possible_moves = ['up', 'down', 'left', 'right']
 
 func _ready():
 	playback_timer.set_one_shot(true)
