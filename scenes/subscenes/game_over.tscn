@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=1]
+
+[node name="game_over" type="Node"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 262.0
+margin/top = 116.0
+margin/right = 11.0
+margin/bottom = 50.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode/enabled = true
+bbcode/bbcode = "[center]GAME OVER[/center]"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="restart_button" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 361.0
+margin/top = 436.0
+margin/right = 650.0
+margin/bottom = 531.0
+custom_fonts/font = ExtResource( 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Restart"
+flat = false
+
+

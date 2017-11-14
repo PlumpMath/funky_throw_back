@@ -2,6 +2,8 @@ extends Node
 
 onready var dialogue_state = get_node('states/dialogue_state')
 onready var repeat_play_state = get_node('states/play_repeat_state')
+onready var game_over_res = preload('res://scenes/subscenes/game_over.tscn')
+var game_over_container
 var current_state
 
 var current_input_timeout = 0
@@ -31,6 +33,13 @@ func _input(event):
 
 func _process(delta):
 	current_input_timeout += delta
+	
+func _restart_level():
+	remove_child(game_over_container)
+	if current_state != null:
+		current_state.exit(true)
+		current_state = null
+	switch_state(dialogue_state, levels[current_level])
 
 func _reset_input_timeout():
 	current_input_timeout = 0
@@ -47,6 +56,9 @@ func switch_state(state, level):
 	current_state.entry(level)
 
 func _game_over():
-	print('Game over!')
+	game_over_container = game_over_res.instance()
+	add_child(game_over_container)
+	get_node('game_over/restart_button').connect('button_down', self, '_restart_level')
+	
 	current_state = null
 	

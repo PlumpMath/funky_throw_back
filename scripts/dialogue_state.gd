@@ -26,11 +26,12 @@ func entry(level):
 	dialogue_background.show()
 	_advance_dialogue()
 	
-func exit():
+func exit(skip_signal):
 	_active = false
 	dialogue_background.hide()
 	dialogue_text.set_text('')
-	emit_signal('exit')
+	if !skip_signal:
+		emit_signal('exit')
 	
 func input(event):
 	if event.type == InputEvent.KEY:
@@ -46,7 +47,7 @@ func _advance_dialogue():
 		current_dialogue+=1
 		current_dialogue_char = -1
 	else:
-		exit()
+ 		exit(false)
 	
 func _advance_dialogue_char():
 	if _active and current_dialogue_char < dialogues[current_dialogue].length():

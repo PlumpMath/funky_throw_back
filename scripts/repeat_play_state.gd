@@ -53,8 +53,9 @@ func entry(level):
 	current_move_playback_pos = -1
 	_set_over()
 	
-func exit():
-	emit_signal('exit')
+func exit(skip_signal):
+	if !skip_signal:
+		emit_signal('exit')
 	
 func input(event):
 	if current_state == states.USER_REPEAT and  event.type == InputEvent.KEY:
