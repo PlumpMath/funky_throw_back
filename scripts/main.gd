@@ -2,6 +2,7 @@ extends Node
 
 onready var dialogue_state = get_node('states/dialogue_state')
 onready var repeat_play_state = get_node('states/play_repeat_state')
+onready var freestyle_state = get_node('states/freestyle_state')
 onready var game_over_res = preload('res://scenes/subscenes/game_over.tscn')
 var game_over_container
 var current_state
@@ -22,8 +23,12 @@ func _ready():
 	repeat_play_state.connect('exit', self, '_repeat_play_state_ended')
 	repeat_play_state.connect('game_over', self, '_game_over')
 	
-	switch_state(dialogue_state, levels[current_level])
+	freestyle_state.connect('input_received', self, '_reset_input_timeout')
+	freestyle_state.connect('exit', self, '_repeat_play_state_ended')
+	freestyle_state.connect('game_over', self, '_game_over')
 	
+	#switch_state(dialogue_state, levels[current_level])
+	switch_state(freestyle_state, levels[current_level])	
 	self.set_process_input(true)
 	self.set_process(true)
 	
@@ -59,6 +64,4 @@ func _game_over():
 	game_over_container = game_over_res.instance()
 	add_child(game_over_container)
 	get_node('game_over/restart_button').connect('button_down', self, '_restart_level')
-	
 	current_state = null
-	

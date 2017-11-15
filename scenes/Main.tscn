@@ -316,7 +316,6 @@ autostart = false
 
 [node name="play_repeat_state" type="Node" parent="states"]
 
-editor/display_folded = true
 script/script = ExtResource( 9 )
 
 [node name="guess_timer" type="Timer" parent="states/play_repeat_state"]
@@ -379,11 +378,11 @@ transform/pos = Vector2( 198.893, 81.0307 )
 
 transform/pos = Vector2( 812.762, 81.0307 )
 
-[node name="freestyle_node" type="Node" parent="states"]
+[node name="freestyle_state" type="Node" parent="states"]
 
 script/script = ExtResource( 11 )
 
-[node name="input_timer" type="Timer" parent="states/freestyle_node"]
+[node name="guess_timer" type="Timer" parent="states/freestyle_state"]
 
 process_mode = 1
 wait_time = 1.0
