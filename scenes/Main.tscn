@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=1]
+[gd_scene load_steps=20 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://images/blank.png" type="Texture" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://images/text-box.png" type="Texture" id=7]
 [ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=9]
-[ext_resource path="res://images/arrows.png" type="Texture" id=10]
-[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=11]
-[ext_resource path="res://audio/song1.wav" type="Sample" id=12]
+[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=10]
+[ext_resource path="res://audio/song1.wav" type="Sample" id=11]
+[ext_resource path="res://scripts/arrow.gd" type="Script" id=12]
+[ext_resource path="res://images/arrows.png" type="Texture" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -73,6 +74,15 @@ tracks/1/keys = {
 "values": [ 4.0, 4.0, -40.0 ]
 }
 
+[sub_resource type="SampleLibrary" id=6]
+
+samples/song1 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 11 )
+}
+
 [sub_resource type="Animation" id=4]
 
 length = 1.4
@@ -103,15 +113,6 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="SampleLibrary" id=6]
-
-samples/song1 = {
-"db": 0.0,
-"pitch": 1.0,
-"priority": 0,
-"sample": ExtResource( 12 )
 }
 
 [node name="Node" type="Node"]
@@ -339,48 +340,9 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="arrow" type="Sprite" parent="states/play_repeat_state"]
-
-editor/display_folded = true
-transform/pos = Vector2( 796.324, 79.2593 )
-transform/scale = Vector2( 2.36907, 2.36907 )
-texture = ExtResource( 10 )
-hframes = 9
-modulate = Color( 1, 1, 1, 0 )
-
-[node name="shineAnimationPlayer" type="AnimationPlayer" parent="states/play_repeat_state/arrow"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
-anims/shine = SubResource( 4 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = "shine"
-
-[node name="displayAnimationPlayer" type="AnimationPlayer" parent="states/play_repeat_state/arrow"]
-
-playback/process_mode = 1
-playback/default_blend_time = 0.0
-root/root = NodePath("..")
-anims/displayAnimation = SubResource( 5 )
-playback/active = true
-playback/speed = 1.0
-blend_times = [  ]
-autoplay = ""
-
-[node name="player_arrow_position" type="Node2D" parent="states/play_repeat_state"]
-
-transform/pos = Vector2( 198.893, 81.0307 )
-
-[node name="enemy_arrow_position" type="Node2D" parent="states/play_repeat_state"]
-
-transform/pos = Vector2( 812.762, 81.0307 )
-
 [node name="freestyle_state" type="Node" parent="states"]
 
-script/script = ExtResource( 11 )
+script/script = ExtResource( 10 )
 
 [node name="guess_timer" type="Timer" parent="states/freestyle_state"]
 
@@ -400,5 +362,48 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 1
 config/samples = SubResource( 6 )
 config/pitch_random = 0.0
+
+[node name="arrow_controller" type="Node" parent="."]
+
+script/script = ExtResource( 12 )
+
+[node name="arrow" type="Sprite" parent="arrow_controller"]
+
+editor/display_folded = true
+transform/pos = Vector2( 796.324, 79.2593 )
+transform/scale = Vector2( 2.36907, 2.36907 )
+texture = ExtResource( 13 )
+hframes = 9
+modulate = Color( 1, 1, 1, 0 )
+
+[node name="shineAnimationPlayer" type="AnimationPlayer" parent="arrow_controller/arrow"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/shine = SubResource( 4 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "shine"
+
+[node name="displayAnimationPlayer" type="AnimationPlayer" parent="arrow_controller/arrow"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/displayAnimation = SubResource( 5 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="player_arrow_position" type="Node2D" parent="arrow_controller"]
+
+transform/pos = Vector2( 198.893, 81.0307 )
+
+[node name="enemy_arrow_position" type="Node2D" parent="arrow_controller"]
+
+transform/pos = Vector2( 812.762, 81.0307 )
 
 

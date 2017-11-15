@@ -1,5 +1,6 @@
 extends Node
 
+onready var arrow_controller = get_node('arrow_controller')
 onready var dialogue_state = get_node('states/dialogue_state')
 onready var repeat_play_state = get_node('states/play_repeat_state')
 onready var freestyle_state = get_node('states/freestyle_state')
@@ -22,6 +23,7 @@ func _ready():
 	repeat_play_state.connect('input_received', self, '_reset_input_timeout')
 	repeat_play_state.connect('exit', self, '_repeat_play_state_ended')
 	repeat_play_state.connect('game_over', self, '_game_over')
+	repeat_play_state.connect('show_arrow', arrow_controller, 'display_arrow')
 	
 	freestyle_state.connect('input_received', self, '_reset_input_timeout')
 	freestyle_state.connect('exit', self, '_repeat_play_state_ended')
