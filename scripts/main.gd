@@ -26,11 +26,12 @@ func _ready():
 	repeat_play_state.connect('show_arrow', arrow_controller, 'display_arrow')
 	
 	freestyle_state.connect('input_received', self, '_reset_input_timeout')
-	freestyle_state.connect('exit', self, '_repeat_play_state_ended')
+	freestyle_state.connect('exit', self, '_freestyle_state_ended')
 	freestyle_state.connect('game_over', self, '_game_over')
+	freestyle_state.connect('show_arrow', arrow_controller, 'display_arrow')
 	
-	#switch_state(dialogue_state, levels[current_level])
-	switch_state(freestyle_state, levels[current_level])	
+	switch_state(dialogue_state, levels[current_level])
+
 	self.set_process_input(true)
 	self.set_process(true)
 	
@@ -55,8 +56,10 @@ func _dialogue_state_ended():
 	switch_state(repeat_play_state, levels[current_level])
 	
 func _repeat_play_state_ended():
+	switch_state(freestyle_state, levels[current_level])
+
+func _freestyle_state_ended():
 	print('end of current play?')
-	#switch_state(repeat_play_state, levels[current_level])	
 
 func switch_state(state, level):
 	current_state = state

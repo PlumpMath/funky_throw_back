@@ -2,6 +2,7 @@ extends Node
 signal input_received
 signal game_over
 signal exit
+signal show_arrow
 
 onready var guess_timer = get_node('guess_timer')
 
@@ -42,14 +43,13 @@ func input(event):
 			freestyle_moves[freestyle_move_index].guess_input(current_input)
 		
 func _next_move():
-	#TODO
-	#Display arrow for move (float down?)
 	if freestyle_move_index + 1 < freestyle_moves.size():
 		freestyle_move_index += 1
+		emit_signal("show_arrow", "player", freestyle_moves[freestyle_move_index].direction)
 		freestyle_moves[freestyle_move_index].connect("guess_timeout", self, "_time_up")
 		freestyle_moves[freestyle_move_index].connect("correct_guess", self, "_correct_guess")
 		freestyle_moves[freestyle_move_index].connect("incorrect_guess", self, "_incorrect_guess")
-		freestyle_moves[freestyle_move_index].start_guess_timer()	
+		freestyle_moves[freestyle_move_index].start_guess_timer()
 		
 func _time_up():
 	_game_over()
