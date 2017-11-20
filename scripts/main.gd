@@ -1,5 +1,7 @@
 extends Node
 
+onready var main_character_animation = get_node('main_character')
+onready var opp_character_animation = get_node('opp_character')
 onready var arrow_controller = get_node('arrow_controller')
 onready var dialogue_state = get_node('states/dialogue_state')
 onready var repeat_play_state = get_node('states/play_repeat_state')
@@ -24,11 +26,13 @@ func _ready():
 	repeat_play_state.connect('exit', self, '_repeat_play_state_ended')
 	repeat_play_state.connect('game_over', self, '_game_over')
 	repeat_play_state.connect('show_arrow', arrow_controller, 'display_arrow')
+	repeat_play_state.connect('play_direction', self, 'play_direction')
 	
 	freestyle_state.connect('input_received', self, '_reset_input_timeout')
 	freestyle_state.connect('exit', self, '_freestyle_state_ended')
 	freestyle_state.connect('game_over', self, '_game_over')
 	freestyle_state.connect('show_arrow', arrow_controller, 'display_arrow')
+	freestyle_state.connect('play_direction', self, 'play_direction')
 	
 	switch_state(dialogue_state, levels[current_level])
 
@@ -64,6 +68,20 @@ func _freestyle_state_ended():
 func switch_state(state, level):
 	current_state = state
 	current_state.entry(level)
+
+func play_direction(character, direction):
+	var target = main_character_animation
+	if character == 'enemy':
+		target = opp_character_animation
+	
+	if direction == 'left':
+		target.left()
+	elif direction == 'right':
+		target.right()
+	elif direction == 'up':
+		target.up()
+	elif direction == 'down':
+		target.down()			
 
 func _game_over():
 	game_over_container = game_over_res.instance()

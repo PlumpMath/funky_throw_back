@@ -3,6 +3,7 @@ signal input_received
 signal game_over
 signal exit
 signal show_arrow
+signal play_direction
 
 onready var guess_timer = get_node('guess_timer')
 
@@ -40,6 +41,7 @@ func input(event):
 			
 		if(current_input != ""):
 			emit_signal('input_received')
+			emit_signal('play_direction', 'player', current_input)
 			freestyle_moves[freestyle_move_index].guess_input(current_input)
 		
 func _next_move():

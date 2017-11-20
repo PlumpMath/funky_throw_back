@@ -1,18 +1,19 @@
-[gd_scene load_steps=20 format=1]
+[gd_scene load_steps=25 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://images/blank.png" type="Texture" id=2]
-[ext_resource path="res://images/dancer.png" type="Texture" id=3]
-[ext_resource path="res://images/spotlight.png" type="Texture" id=4]
-[ext_resource path="res://scripts/intro_level.gd" type="Script" id=5]
-[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=6]
-[ext_resource path="res://images/text-box.png" type="Texture" id=7]
-[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=8]
-[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=9]
-[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=10]
-[ext_resource path="res://audio/song1.wav" type="Sample" id=11]
-[ext_resource path="res://scripts/arrow.gd" type="Script" id=12]
-[ext_resource path="res://images/arrows.png" type="Texture" id=13]
+[ext_resource path="res://scripts/character_animation.gd" type="Script" id=3]
+[ext_resource path="res://images/dancer.png" type="Texture" id=4]
+[ext_resource path="res://images/spotlight.png" type="Texture" id=5]
+[ext_resource path="res://scripts/intro_level.gd" type="Script" id=6]
+[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=7]
+[ext_resource path="res://images/text-box.png" type="Texture" id=8]
+[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=9]
+[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=10]
+[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=11]
+[ext_resource path="res://audio/song1.wav" type="Sample" id=12]
+[ext_resource path="res://scripts/arrow.gd" type="Script" id=13]
+[ext_resource path="res://images/arrows.png" type="Texture" id=14]
 
 [sub_resource type="Animation" id=1]
 
@@ -31,8 +32,26 @@ tracks/0/keys = {
 "values": [ Vector2( -50.3338, 250.309 ), Vector2( 1265.15, 250.309 ) ]
 }
 
+[sub_resource type="Animation" id=10]
+
+resource/name = "down"
+length = 0.8
+loop = false
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.08, 0.68, 0.76 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20, 21 ]
+}
+
 [sub_resource type="Animation" id=2]
 
+resource/name = "idle"
 length = 1.0
 loop = true
 step = 0.1
@@ -45,6 +64,57 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "left"
+length = 0.8
+loop = false
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.08, 0.68, 0.76 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource/name = "right"
+length = 0.8
+loop = false
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.08, 0.68, 0.76 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "up"
+length = 0.8
+loop = false
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.08, 0.68, 0.76 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 14, 15, 16 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -80,7 +150,7 @@ samples/song1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 11 )
+"sample": ExtResource( 12 )
 }
 
 [sub_resource type="Animation" id=5]
@@ -149,7 +219,6 @@ drag_margin/bottom = 0.2
 
 [node name="scroll_camera" type="Camera2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 696.406, 250.309 )
 anchor_mode = 1
 rotating = false
@@ -177,18 +246,48 @@ anims/camera_scroll = SubResource( 1 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
-autoplay = "camera_scroll"
+autoplay = ""
 
 [node name="main_character" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="main_character"]
 
 transform/pos = Vector2( 201.167, 350 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 hframes = 22
+frame = 18
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main_character"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/down = SubResource( 10 )
+anims/idle = SubResource( 2 )
+anims/left = SubResource( 8 )
+anims/right = SubResource( 7 )
+anims/up = SubResource( 9 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "idle"
+
+[node name="opp_character" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="opp_character"]
+
+transform/pos = Vector2( 806.224, 350 )
+transform/scale = Vector2( 5, 5 )
+texture = ExtResource( 4 )
+flip_h = true
+hframes = 22
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="opp_character"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -199,17 +298,19 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = "character_idle"
 
-[node name="temp_opp" type="Node" parent="."]
+[node name="opp_character1" type="Node" parent="."]
 
-[node name="Sprite" type="Sprite" parent="temp_opp"]
+script/script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="opp_character1"]
 
 transform/pos = Vector2( 806.224, 350 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 flip_h = true
 hframes = 22
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="temp_opp"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="opp_character1"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -230,7 +331,7 @@ visibility/blend_mode = 1
 transform/pos = Vector2( 57.6635, -46.0116 )
 transform/rot = -7.71005
 transform/scale = Vector2( 0.347994, 0.454554 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 offset = Vector2( 17.5135, 1249.97 )
 modulate = Color( 0.824219, 0.0354156, 0.405167, 0.650275 )
 
@@ -240,7 +341,7 @@ visibility/blend_mode = 1
 transform/pos = Vector2( 830.168, -43.6952 )
 transform/rot = -1.37708
 transform/scale = Vector2( 0.24672, 0.408274 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 offset = Vector2( 17.8343, 1219.66 )
 modulate = Color( 0.193954, 0.537814, 0.871094, 0.650275 )
 
@@ -261,13 +362,13 @@ editor/display_folded = true
 
 [node name="intro_level" type="Node" parent="levels"]
 
-script/script = ExtResource( 5 )
+script/script = ExtResource( 6 )
 
 [node name="states" type="Node" parent="."]
 
 [node name="dialogue_state" type="Node" parent="states"]
 
-script/script = ExtResource( 6 )
+script/script = ExtResource( 7 )
 character_timer = 0.05
 
 [node name="dialogue_background" type="Patch9Frame" parent="states/dialogue_state"]
@@ -281,7 +382,7 @@ margin/left = 57.0
 margin/top = 450.0
 margin/right = 1868.0
 margin/bottom = 725.0
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 patch_margin/left = 40
 patch_margin/top = 40
 patch_margin/right = 40
@@ -298,7 +399,7 @@ margin/left = 102.0
 margin/top = 472.0
 margin/right = 1281.0
 margin/bottom = 607.0
-custom_fonts/normal_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 9 )
 bbcode/enabled = false
 bbcode/bbcode = "Test"
 visible_characters = -1
@@ -313,7 +414,7 @@ autostart = false
 
 [node name="play_repeat_state" type="Node" parent="states"]
 
-script/script = ExtResource( 9 )
+script/script = ExtResource( 10 )
 
 [node name="guess_timer" type="Timer" parent="states/play_repeat_state"]
 
@@ -338,7 +439,7 @@ autostart = false
 
 [node name="freestyle_state" type="Node" parent="states"]
 
-script/script = ExtResource( 10 )
+script/script = ExtResource( 11 )
 
 [node name="guess_timer" type="Timer" parent="states/freestyle_state"]
 
@@ -361,14 +462,14 @@ config/pitch_random = 0.0
 
 [node name="arrow_controller" type="Node" parent="."]
 
-script/script = ExtResource( 12 )
+script/script = ExtResource( 13 )
 
 [node name="arrow" type="Sprite" parent="arrow_controller"]
 
 editor/display_folded = true
 transform/pos = Vector2( 796.324, 79.2593 )
 transform/scale = Vector2( 2.36907, 2.36907 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 hframes = 9
 modulate = Color( 1, 1, 1, 0 )
 
@@ -401,5 +502,21 @@ transform/pos = Vector2( 198.893, 81.0307 )
 [node name="enemy_arrow_position" type="Node2D" parent="arrow_controller"]
 
 transform/pos = Vector2( 812.762, 81.0307 )
+
+[node name="follow_leader_text" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 183.0
+margin/top = 147.0
+margin/right = 838.0
+margin/bottom = 233.0
+custom_fonts/normal_font = ExtResource( 9 )
+bbcode/enabled = true
+bbcode/bbcode = "[center]FOLLOW THE LEADER[/center]"
+visible_characters = -1
+percent_visible = 1.0
 
 

@@ -3,6 +3,7 @@ signal input_received
 signal exit
 signal game_over
 signal show_arrow
+signal play_direction
 
 onready var guess_timer = get_node("guess_timer")
 onready var playback_timer = get_node("playback_timer")
@@ -76,6 +77,7 @@ func _game_over():
 func _correct_guess():
 	print('Correct Guess!')
 	emit_signal("show_arrow", "player", moves[current_move_stage].direction)
+	emit_signal('play_direction', 'player', moves[current_move_stage].direction)
 	_wait_for_next_move()
 	
 func _next_round_timer_up():
@@ -109,7 +111,8 @@ func _playback_next_move():
 	if current_move_playback_pos + 1 < moves.size():
 		current_move_playback_pos += 1
 		print(moves[current_move_playback_pos].direction)
-		emit_signal("show_arrow", "enemy", moves[current_move_playback_pos].direction)
+		emit_signal('show_arrow', 'enemy', moves[current_move_playback_pos].direction)
+		emit_signal('play_direction', 'enemy', moves[current_move_playback_pos].direction)
 		playback_timer.start()
 	else:
 		current_state = states.USER_REPEAT
