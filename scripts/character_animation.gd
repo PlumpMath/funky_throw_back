@@ -2,7 +2,7 @@ extends Node
 onready var animator = get_node('./AnimationPlayer')
 
 func _ready():
-	#animator.play('idle')
+	animator.connect("finished", self, '_return_to_idle')
 	pass
 
 func left():
@@ -15,4 +15,7 @@ func up():
 	animator.play('up')
 
 func down():
-	animator.play('down')	
+	animator.play('down')
+	
+func _return_to_idle():
+	animator.play('idle')	
