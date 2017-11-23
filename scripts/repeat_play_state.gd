@@ -8,6 +8,8 @@ signal play_direction
 onready var guess_timer = get_node("guess_timer")
 onready var playback_timer = get_node("playback_timer")
 onready var round_timer = get_node("round_timer")
+onready var follow_leader_text = get_node("follow_leader_text")
+onready var header_text_timer = get_node("header_text_timer")
 
 const game_move = preload('game_move.gd').GameMove
 var moves
@@ -20,7 +22,9 @@ var current_move_stage
 #position in the current move set
 var current_move_set
 
-var round_break_time = 2
+export var round_break_time = 2
+
+export var header_text_time = 2
 
 var current_move_playback_pos
 
@@ -39,6 +43,10 @@ func _ready():
 	round_timer.set_one_shot(true)
 	round_timer.connect("timeout", self, "_next_round_timer_up")
 	round_timer.set_wait_time(round_break_time)
+	
+	header_text_timer.set_one_shot(true)
+	header_text_timer.connect("timeout", self, "_header_over")
+	header_text_timer.set_wait_time(header_text_time)
 
 func entry(level):
 	randomize()
@@ -49,6 +57,11 @@ func entry(level):
 	current_move_stage = -1
 	current_move_set = -1
 	current_move_playback_pos = -1
+	follow_leader_text.showAni()
+	header_text_timer.start()
+	
+func _header_over():
+	follow_leader_text.hideAni()
 	_set_over()
 	
 func exit(skip_signal):
