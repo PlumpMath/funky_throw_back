@@ -63,6 +63,8 @@ func _next_move():
 		freestyle_moves[freestyle_move_index].connect("correct_guess", self, "_correct_guess")
 		freestyle_moves[freestyle_move_index].connect("incorrect_guess", self, "_incorrect_guess")
 		freestyle_moves[freestyle_move_index].start_guess_timer()
+	else:
+		exit(false)	
 		
 func _time_up():
 	_game_over()
