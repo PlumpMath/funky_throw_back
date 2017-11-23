@@ -34,7 +34,7 @@ func _ready():
 	freestyle_state.connect('show_arrow', arrow_controller, 'display_arrow')
 	freestyle_state.connect('play_direction', self, 'play_direction')
 	
-	switch_state(dialogue_state, levels[current_level])
+	switch_state(dialogue_state, levels[current_level].get_current_stage())
 
 	self.set_process_input(true)
 	self.set_process(true)
@@ -51,23 +51,27 @@ func _restart_level():
 	if current_state != null:
 		current_state.exit(true)
 		current_state = null
-	switch_state(dialogue_state, levels[current_level])
+	switch_state(dialogue_state, levels[current_level].get_current_stage())
 
 func _reset_input_timeout():
 	current_input_timeout = 0
 
 func _dialogue_state_ended():
-	switch_state(repeat_play_state, levels[current_level])
+	switch_state(repeat_play_state, levels[current_level].get_current_stage())
 	
 func _repeat_play_state_ended():
-	switch_state(freestyle_state, levels[current_level])
+	switch_state(freestyle_state, levels[current_level].get_current_stage())
 
 func _freestyle_state_ended():
-	print('end of current play?')
+	if levels[current_level].advance_stage():
+		switch_state(dialogue_state, levels[current_level].get_current_stage())
+	else:	
+		print('end of current play?')
+	
 
-func switch_state(state, level):
+func switch_state(state, stage):
 	current_state = state
-	current_state.entry(level)
+	current_state.entry(stage)
 
 func play_direction(character, direction):
 	var target = main_character_animation

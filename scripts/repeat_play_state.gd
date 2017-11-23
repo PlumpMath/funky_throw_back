@@ -14,7 +14,7 @@ onready var header_text_timer = get_node("header_text_timer")
 const game_move = preload('game_move.gd').GameMove
 var moves
 
-var current_level
+var current_stage
 
 # current set of moves
 var current_move_stage
@@ -48,12 +48,12 @@ func _ready():
 	header_text_timer.connect("timeout", self, "_header_over")
 	header_text_timer.set_wait_time(header_text_time)
 
-func entry(level):
+func entry(stage):
 	randomize()
 	
-	playback_timer.set_wait_time(level.move_playback_time)
+	playback_timer.set_wait_time(stage.move_playback_time)
 	
-	current_level = level
+	current_stage = stage
 	current_move_stage = -1
 	current_move_set = -1
 	current_move_playback_pos = -1
@@ -105,13 +105,13 @@ func _time_up():
 func _generate_next_moves(num):
 	var current_moves = []
 	for i in range(0, num):
-		current_moves.append(game_move.new().setup(possible_moves[rand_range(0, possible_moves.size())], current_level.move_time, guess_timer) )
+		current_moves.append(game_move.new().setup(possible_moves[rand_range(0, possible_moves.size())], current_stage.move_time, guess_timer) )
 	return current_moves	
 		
 func _set_over():
-	if current_move_set + 1 < current_level.moves.size():
+	if current_move_set + 1 < current_stage.moves.size():
 		current_move_set += 1
-		moves = _generate_next_moves(current_level.moves[current_move_set])
+		moves = _generate_next_moves(current_stage.moves[current_move_set])
 		current_move_stage = -1
 		
 		current_state = states.PLAYBACK

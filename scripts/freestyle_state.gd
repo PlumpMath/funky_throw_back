@@ -12,15 +12,15 @@ const game_move = preload('game_move.gd').GameMove
 
 var freestyle_moves
 var freestyle_move_index = -1
-var current_level
+var current_stage
 
 func _ready():
 	pass
 
-func entry(level):
-	current_level = level
+func entry(stage):
+	current_stage = stage
 	freestyle_move_index = -1
-	freestyle_moves = _generate_freestyle_moves(level.num_freestyle_moves)
+	freestyle_moves = _generate_freestyle_moves(stage.num_freestyle_moves)
 	_next_move()
 	
 func exit(skip_signal):
@@ -68,5 +68,5 @@ func _game_over():
 func _generate_freestyle_moves(num):
 	var current_moves = []
 	for i in range(0, num):
-		current_moves.append(game_move.new().setup(possible_moves[rand_range(0, possible_moves.size())], current_level.freestyle_time, guess_timer) )
+		current_moves.append(game_move.new().setup(possible_moves[rand_range(0, possible_moves.size())], current_stage.freestyle_time, guess_timer) )
 	return current_moves

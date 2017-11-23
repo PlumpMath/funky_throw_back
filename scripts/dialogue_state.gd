@@ -19,10 +19,10 @@ func _ready():
 	dialogue_print_timer.start()
 	dialogue_print_timer.connect("timeout", self, "_advance_dialogue_char")
 
-func entry(level):
+func entry(stage):
 	_active = true
 	current_dialogue = -1
-	dialogues = level.dialogue
+	dialogues = stage.dialogue
 	dialogue_background.show()
 	_advance_dialogue()
 	
