@@ -4,18 +4,17 @@
 [ext_resource path="res://images/blank.png" type="Texture" id=2]
 [ext_resource path="res://scripts/character_animation.gd" type="Script" id=3]
 [ext_resource path="res://images/dancer.png" type="Texture" id=4]
-[ext_resource path="res://animations/player_idle.tres" type="Animation" id=5]
-[ext_resource path="res://images/spotlight.png" type="Texture" id=6]
-[ext_resource path="res://scripts/intro_level.gd" type="Script" id=7]
-[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=8]
-[ext_resource path="res://images/text-box.png" type="Texture" id=9]
-[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=10]
-[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=11]
-[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=12]
-[ext_resource path="res://audio/song1.wav" type="Sample" id=13]
-[ext_resource path="res://scripts/arrow.gd" type="Script" id=14]
-[ext_resource path="res://images/arrows.png" type="Texture" id=15]
-[ext_resource path="res://fonts/header.tres" type="DynamicFont" id=16]
+[ext_resource path="res://images/spotlight.png" type="Texture" id=5]
+[ext_resource path="res://scripts/intro_level.gd" type="Script" id=6]
+[ext_resource path="res://scripts/dialogue_state.gd" type="Script" id=7]
+[ext_resource path="res://images/text-box.png" type="Texture" id=8]
+[ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=9]
+[ext_resource path="res://scripts/repeat_play_state.gd" type="Script" id=10]
+[ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=11]
+[ext_resource path="res://audio/song1.wav" type="Sample" id=12]
+[ext_resource path="res://scripts/arrow.gd" type="Script" id=13]
+[ext_resource path="res://images/arrows.png" type="Texture" id=14]
+[ext_resource path="res://fonts/header.tres" type="DynamicFont" id=15]
 
 [sub_resource type="Animation" id=1]
 
@@ -34,7 +33,24 @@ tracks/0/keys = {
 "values": [ Vector2( -50.3338, 250.309 ), Vector2( 1265.15, 250.309 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=10]
+
+resource/name = "down"
+length = 0.8
+loop = false
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.08, 0.68, 0.76 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20, 21 ]
+}
+
+[sub_resource type="Animation" id=2]
 
 length = 1.0
 loop = true
@@ -50,7 +66,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 
 resource/name = "left"
 length = 0.8
@@ -67,7 +83,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 
 resource/name = "right"
 length = 0.8
@@ -84,7 +100,7 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 
 resource/name = "up"
 length = 0.8
@@ -101,7 +117,7 @@ tracks/0/keys = {
 "values": [ 13, 14, 15, 16 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 
 length = 6.0
 loop = true
@@ -127,16 +143,16 @@ tracks/1/keys = {
 "values": [ 4.0, 4.0, -40.0 ]
 }
 
-[sub_resource type="SampleLibrary" id=8]
+[sub_resource type="SampleLibrary" id=7]
 
 samples/song1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 13 )
+"sample": ExtResource( 12 )
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 
 length = 1.4
 loop = true
@@ -152,7 +168,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 8 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=9]
 
 length = 1.0
 loop = false
@@ -248,11 +264,11 @@ frame = 21
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/down = ExtResource( 5 )
-anims/idle = SubResource( 3 )
-anims/left = SubResource( 4 )
-anims/right = SubResource( 5 )
-anims/up = SubResource( 6 )
+anims/down = SubResource( 10 )
+anims/idle = SubResource( 2 )
+anims/left = SubResource( 3 )
+anims/right = SubResource( 4 )
+anims/up = SubResource( 5 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -275,7 +291,7 @@ hframes = 22
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/character_idle = SubResource( 3 )
+anims/character_idle = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -289,7 +305,7 @@ visibility/blend_mode = 1
 transform/pos = Vector2( 57.6635, -46.0116 )
 transform/rot = -7.71005
 transform/scale = Vector2( 0.347994, 0.454554 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 offset = Vector2( 17.5135, 1249.97 )
 modulate = Color( 0.824219, 0.0354156, 0.405167, 0.650275 )
 
@@ -299,7 +315,7 @@ visibility/blend_mode = 1
 transform/pos = Vector2( 830.168, -43.6952 )
 transform/rot = -1.37708
 transform/scale = Vector2( 0.24672, 0.408274 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 offset = Vector2( 17.8343, 1219.66 )
 modulate = Color( 0.193954, 0.537814, 0.871094, 0.650275 )
 
@@ -308,7 +324,7 @@ modulate = Color( 0.193954, 0.537814, 0.871094, 0.650275 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/lights = SubResource( 7 )
+anims/lights = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -320,13 +336,13 @@ editor/display_folded = true
 
 [node name="intro_level" type="Node" parent="levels"]
 
-script/script = ExtResource( 7 )
+script/script = ExtResource( 6 )
 
 [node name="states" type="Node" parent="."]
 
 [node name="dialogue_state" type="Node" parent="states"]
 
-script/script = ExtResource( 8 )
+script/script = ExtResource( 7 )
 character_timer = 0.05
 
 [node name="dialogue_background" type="Patch9Frame" parent="states/dialogue_state"]
@@ -340,7 +356,7 @@ margin/left = 57.0
 margin/top = 450.0
 margin/right = 1868.0
 margin/bottom = 725.0
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 patch_margin/left = 40
 patch_margin/top = 40
 patch_margin/right = 40
@@ -357,7 +373,7 @@ margin/left = 99.0
 margin/top = 472.0
 margin/right = 1278.0
 margin/bottom = 607.0
-custom_fonts/normal_font = ExtResource( 10 )
+custom_fonts/normal_font = ExtResource( 9 )
 bbcode/enabled = false
 bbcode/bbcode = "Test"
 visible_characters = -1
@@ -372,7 +388,7 @@ autostart = false
 
 [node name="play_repeat_state" type="Node" parent="states"]
 
-script/script = ExtResource( 11 )
+script/script = ExtResource( 10 )
 
 [node name="guess_timer" type="Timer" parent="states/play_repeat_state"]
 
@@ -397,7 +413,7 @@ autostart = false
 
 [node name="freestyle_state" type="Node" parent="states"]
 
-script/script = ExtResource( 12 )
+script/script = ExtResource( 11 )
 
 [node name="guess_timer" type="Timer" parent="states/freestyle_state"]
 
@@ -415,19 +431,19 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 8 )
+config/samples = SubResource( 7 )
 config/pitch_random = 0.0
 
 [node name="arrow_controller" type="Node" parent="."]
 
-script/script = ExtResource( 14 )
+script/script = ExtResource( 13 )
 
 [node name="arrow" type="Sprite" parent="arrow_controller"]
 
 editor/display_folded = true
 transform/pos = Vector2( 796.324, 79.2593 )
 transform/scale = Vector2( 2.36907, 2.36907 )
-texture = ExtResource( 15 )
+texture = ExtResource( 14 )
 hframes = 9
 modulate = Color( 1, 1, 1, 0 )
 
@@ -436,7 +452,7 @@ modulate = Color( 1, 1, 1, 0 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/shine = SubResource( 9 )
+anims/shine = SubResource( 8 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -447,7 +463,7 @@ autoplay = "shine"
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/displayAnimation = SubResource( 10 )
+anims/displayAnimation = SubResource( 9 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -471,7 +487,7 @@ margin/left = 183.0
 margin/top = 147.0
 margin/right = 838.0
 margin/bottom = 233.0
-custom_fonts/normal_font = ExtResource( 16 )
+custom_fonts/normal_font = ExtResource( 15 )
 bbcode/enabled = true
 bbcode/bbcode = "[center]FOLLOW THE LEADER[/center]"
 visible_characters = -1
