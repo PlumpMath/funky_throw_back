@@ -485,8 +485,46 @@ autostart = false
 [node name="freestyle_state" type="Node" parent="states"]
 
 script/script = ExtResource( 13 )
+header_text_time = 2
 
 [node name="guess_timer" type="Timer" parent="states/freestyle_state"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="freestyle_text" type="RichTextLabel" parent="states/freestyle_state"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 183.0
+margin/top = 147.0
+margin/right = 838.0
+margin/bottom = 233.0
+custom_fonts/normal_font = ExtResource( 11 )
+custom_colors/default_color = Color( 1, 1, 1, 0 )
+bbcode/enabled = true
+bbcode/bbcode = "[center]FREESTYLE[/center]"
+visible_characters = -1
+percent_visible = 1.0
+script/script = ExtResource( 12 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="states/freestyle_state/freestyle_text"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/hide = SubResource( 8 )
+anims/show = SubResource( 9 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="header_text_timer" type="Timer" parent="states/freestyle_state"]
 
 process_mode = 1
 wait_time = 1.0

@@ -6,6 +6,8 @@ signal show_arrow
 signal play_direction
 
 onready var guess_timer = get_node('guess_timer')
+onready var freestyle_text = get_node('freestyle_text')
+onready var header_text_timer = get_node('header_text_timer')
 
 const possible_moves = ['up', 'down', 'left', 'right']
 const game_move = preload('game_move.gd').GameMove
@@ -14,13 +16,22 @@ var freestyle_moves
 var freestyle_move_index = -1
 var current_stage
 
+export var header_text_time = 2
+
 func _ready():
-	pass
+	header_text_timer.set_one_shot(true)
+	header_text_timer.connect("timeout", self, "_freestyle_text_end")
+	header_text_timer.set_wait_time(header_text_time)
 
 func entry(stage):
 	current_stage = stage
 	freestyle_move_index = -1
 	freestyle_moves = _generate_freestyle_moves(stage.num_freestyle_moves)
+	freestyle_text.showAni()
+	header_text_timer.start()
+	
+func _freestyle_text_end():
+	freestyle_text.hideAni()
 	_next_move()
 	
 func exit(skip_signal):
