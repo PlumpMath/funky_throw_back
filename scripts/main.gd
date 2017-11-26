@@ -2,6 +2,8 @@ extends Node
 
 onready var main_character_animation = get_node('main_character')
 onready var opp_character_animation = get_node('opp_character')
+onready var player_spotlight = get_node('scene/player_spotlight')
+onready var enemy_spotlight = get_node('scene/enemy_spotlight')
 onready var arrow_controller = get_node('arrow_controller')
 onready var dialogue_state = get_node('states/dialogue_state')
 onready var repeat_play_state = get_node('states/play_repeat_state')
@@ -27,12 +29,17 @@ func _ready():
 	repeat_play_state.connect('game_over', self, '_game_over')
 	repeat_play_state.connect('show_arrow', arrow_controller, 'display_arrow')
 	repeat_play_state.connect('play_direction', self, 'play_direction')
+	repeat_play_state.connect('show_spotlight', self, 'show_spotlight')
 	
 	freestyle_state.connect('input_received', self, '_reset_input_timeout')
 	freestyle_state.connect('exit', self, '_freestyle_state_ended')
 	freestyle_state.connect('game_over', self, '_game_over')
 	freestyle_state.connect('show_arrow', arrow_controller, 'display_arrow')
 	freestyle_state.connect('play_direction', self, 'play_direction')
+	freestyle_state.connect('show_spotlight', self, 'show_spotlight')
+	
+	player_spotlight.hide()
+	enemy_spotlight.hide()
 	
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
 
@@ -68,6 +75,20 @@ func _freestyle_state_ended():
 	else:	
 		print('end of current play?')
 	
+func show_spotlight(light):
+	var target = player_spotlight
+	var other = enemy_spotlight
+	if light == 'off':
+		target.hide()
+		other.hide()
+		return
+		
+	if light == 'enemy':
+		target = enemy_spotlight
+		other = player_spotlight
+		
+	target.show()
+	other.hide()	
 
 func switch_state(state, stage):
 	current_state = state

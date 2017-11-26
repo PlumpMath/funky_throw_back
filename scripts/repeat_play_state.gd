@@ -4,6 +4,7 @@ signal exit
 signal game_over
 signal show_arrow
 signal play_direction
+signal show_spotlight
 
 onready var guess_timer = get_node("guess_timer")
 onready var playback_timer = get_node("playback_timer")
@@ -115,6 +116,7 @@ func _set_over():
 		current_move_stage = -1
 		
 		current_state = states.PLAYBACK
+		emit_signal('show_spotlight', 'enemy')
 		current_move_playback_pos = -1
 		_playback_next_move()
 	else:
@@ -123,12 +125,12 @@ func _set_over():
 func _playback_next_move():
 	if current_move_playback_pos + 1 < moves.size():
 		current_move_playback_pos += 1
-		print(moves[current_move_playback_pos].direction)
 		emit_signal('show_arrow', 'enemy', moves[current_move_playback_pos].direction)
 		emit_signal('play_direction', 'enemy', moves[current_move_playback_pos].direction)
 		playback_timer.start()
 	else:
 		current_state = states.USER_REPEAT
+		emit_signal('show_spotlight', 'player')
 		_wait_for_next_move()	
 
 func _wait_for_next_move():

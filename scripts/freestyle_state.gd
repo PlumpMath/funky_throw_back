@@ -4,6 +4,7 @@ signal game_over
 signal exit
 signal show_arrow
 signal play_direction
+signal show_spotlight
 
 onready var guess_timer = get_node('guess_timer')
 onready var freestyle_text = get_node('freestyle_text')
@@ -29,12 +30,14 @@ func entry(stage):
 	freestyle_moves = _generate_freestyle_moves(stage.num_freestyle_moves)
 	freestyle_text.showAni()
 	header_text_timer.start()
+	emit_signal('show_spotlight', 'player')
 	
 func _freestyle_text_end():
 	freestyle_text.hideAni()
 	_next_move()
 	
 func exit(skip_signal):
+	emit_signal('show_spotlight', 'off')
 	if !skip_signal:
 		emit_signal('exit')
 		
