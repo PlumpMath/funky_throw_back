@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=1]
+[gd_scene load_steps=37 format=1]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://images/blank.png" type="Texture" id=2]
@@ -16,9 +16,8 @@
 [ext_resource path="res://fonts/header.tres" type="DynamicFont" id=14]
 [ext_resource path="res://scripts/text_animation_display.gd" type="Script" id=15]
 [ext_resource path="res://scripts/freestyle_state.gd" type="Script" id=16]
-[ext_resource path="res://audio/song1.wav" type="Sample" id=17]
-[ext_resource path="res://scripts/arrow.gd" type="Script" id=18]
-[ext_resource path="res://images/arrows.png" type="Texture" id=19]
+[ext_resource path="res://scripts/arrow.gd" type="Script" id=17]
+[ext_resource path="res://images/arrows.png" type="Texture" id=18]
 
 [sub_resource type="Animation" id=1]
 
@@ -359,7 +358,7 @@ samples/song1 = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 17 )
+"sample": null
 }
 
 [sub_resource type="Animation" id=17]
@@ -398,6 +397,7 @@ tracks/0/keys = {
 
 script/script = ExtResource( 1 )
 guess_timout = 0.1
+current_level = 1
 
 [node name="background" type="Sprite" parent="."]
 
@@ -831,14 +831,14 @@ config/pitch_random = 0.0
 [node name="arrow_controller" type="Node" parent="."]
 
 editor/display_folded = true
-script/script = ExtResource( 18 )
+script/script = ExtResource( 17 )
 
 [node name="arrow" type="Sprite" parent="arrow_controller"]
 
 editor/display_folded = true
 transform/pos = Vector2( 796.324, 79.2593 )
 transform/scale = Vector2( 2.36907, 2.36907 )
-texture = ExtResource( 19 )
+texture = ExtResource( 18 )
 hframes = 9
 modulate = Color( 1, 1, 1, 0 )
 

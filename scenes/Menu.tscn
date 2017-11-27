@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=2]
 [ext_resource path="res://images/text-box.png" type="Texture" id=3]
-[ext_resource path="res://audio/410536__greek555__sample-120-bpm.wav" type="Sample" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 
@@ -137,12 +136,6 @@ draw_bg = true
 
 [sub_resource type="SampleLibrary" id=11]
 
-samples/410536__greek555__sample-120-bpm = {
-"db": 0.0,
-"pitch": 1.0,
-"priority": 0,
-"sample": ExtResource( 4 )
-}
 
 [node name="Node" type="Node"]
 

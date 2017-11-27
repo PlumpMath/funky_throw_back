@@ -46,6 +46,8 @@ class IntroLevel:
 	var current_stage = 0
 	var stages = [stage1, stage2]
 	
+	var post_dialogue = "Ugh... Not cool..."
+	
 	func get_current_stage():
 		return stages[current_stage]
 		

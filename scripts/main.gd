@@ -16,10 +16,13 @@ var current_input_timeout = 0
 export var guess_timout = .1
 
 var levels
-var current_level = 0
+export var current_level = 0
 
 func _ready():
-	levels = [preload('intro_level.gd').IntroLevel.new()]
+	levels = [
+		preload('intro_level.gd').IntroLevel.new(),
+		preload('level2.gd').Level2.new()
+	]
 	
 	dialogue_state.connect('input_received', self, '_reset_input_timeout')
 	dialogue_state.connect('exit', self, '_dialogue_state_ended')
