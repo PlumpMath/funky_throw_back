@@ -1,13 +1,16 @@
 extends 'res://scripts/character_animation.gd'
 
-onready var sprite = get_node('./character/Sprite')
-onready var enemy_sprites = [
-	load('res://images/enemy1.png'),
-	load('res://images/enemy2.png'),
-	load('res://images/enemy3.png'),
-	load('res://images/enemy4.png')
+onready var enemy_scenes = [
+	load('res://scenes/subscenes/enemy1.tscn'),
+	load('res://scenes/subscenes/enemy2.tscn'),
+	load('res://scenes/subscenes/enemy3.tscn'),
+	load('res://scenes/subscenes/enemy4.tscn')
 ]
 
 func set_sprite(num):
-		pass
-		#sprite.set_texture(enemy_sprites[num])
+	remove_child(get_node('character'))
+	var new_enemy = enemy_scenes[num].instance()
+	add_child(new_enemy)
+	
+	animator = new_enemy.get_node('./AnimationPlayer')
+	animator.connect("finished", self, '_return_to_idle')

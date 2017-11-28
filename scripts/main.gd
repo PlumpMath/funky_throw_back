@@ -21,7 +21,8 @@ export var current_level = 0
 func _ready():
 	levels = [
 		preload('intro_level.gd').IntroLevel.new(),
-		preload('level2.gd').Level2.new()
+		preload('level2.gd').Level2.new(),
+		preload('level3.gd').Level3.new()
 	]
 	
 	dialogue_state.connect('input_received', self, '_reset_input_timeout')
