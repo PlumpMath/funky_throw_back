@@ -45,6 +45,8 @@ func _ready():
 	enemy_spotlight.hide()
 	
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
+	
+	opp_character_animation.set_sprite(current_level)
 
 	self.set_process_input(true)
 	self.set_process(true)
@@ -73,10 +75,11 @@ func _repeat_play_state_ended():
 	switch_state(freestyle_state, levels[current_level].get_current_stage())
 
 func _freestyle_state_ended():
-	if levels[current_level].advance_stage():
-		switch_state(dialogue_state, levels[current_level].get_current_stage())
-	else:	
+	if !levels[current_level].advance_stage():
+		current_level += 1
+		opp_character_animation.set_sprite(current_level)
 		print('end of current play?')
+	switch_state(dialogue_state, levels[current_level].get_current_stage())
 	
 func show_spotlight(light):
 	var target = player_spotlight
