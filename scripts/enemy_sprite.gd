@@ -1,6 +1,6 @@
 extends 'res://scripts/character_animation.gd'
 
-onready var sprite = get_node('./Sprite')
+onready var sprite = get_node('./character/Sprite')
 onready var enemy_sprites = [
 	load('res://images/enemy1.png'),
 	load('res://images/enemy2.png'),
@@ -9,4 +9,5 @@ onready var enemy_sprites = [
 ]
 
 func set_sprite(num):
-	sprite.set_texture(enemy_sprites[num])
+		pass
+		#sprite.set_texture(enemy_sprites[num])

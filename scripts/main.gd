@@ -63,6 +63,7 @@ func _restart_level():
 	if current_state != null:
 		current_state.exit(true)
 		current_state = null
+	levels[current_level].restart_level()	
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
 
 func _reset_input_timeout():

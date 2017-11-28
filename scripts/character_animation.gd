@@ -1,5 +1,5 @@
 extends Node
-onready var animator = get_node('./AnimationPlayer')
+onready var animator = get_node('./character/AnimationPlayer')
 
 func _ready():
 	animator.connect("finished", self, '_return_to_idle')

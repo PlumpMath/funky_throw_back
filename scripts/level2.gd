@@ -68,3 +68,7 @@ class Level2:
 			current_stage += 1
 			return true
 		return false	
+		
+	func restart_level():
+		current_stage = 0	
+	
