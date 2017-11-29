@@ -4,11 +4,11 @@ onready var continue_button = get_node('continue_button')
 onready var newgame_button = get_node('newgame_button')
 
 func _ready():
-	newgame_button.connect("button_down", self, "_new_game_button_press")
+	newgame_button.connect("button_up", self, "_new_game_button_press")
 	
 	var save_game = _load_save_data()
 	if save_game != null:
-		continue_button.connect("button_down", self, "_continue_button_press", [save_game['level'], save_game['stage']])
+		continue_button.connect("button_up", self, "_continue_button_press", [save_game['level'], save_game['stage']])
 	else:
 		continue_button.set_disabled(true)
 

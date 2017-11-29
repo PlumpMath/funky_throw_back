@@ -1,6 +1,44 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://fonts/dialogue.tres" type="DynamicFont" id=1]
+[ext_resource path="res://images/ui.png" type="Texture" id=2]
+[ext_resource path="res://fonts/button.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxTexture" id=14]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 2 )
+region_rect = Rect2( 3, 1, 40, 19 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=13]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 2 )
+region_rect = Rect2( 3, 20, 40, 19 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
 
 [node name="game_over" type="Node"]
 
@@ -35,7 +73,16 @@ margin/left = 367.0
 margin/top = 410.0
 margin/right = 656.0
 margin/bottom = 505.0
-custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 14 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color_disabled = Color( 0.324219, 0.324219, 0.324219, 1 )
+custom_colors/font_color = Color( 0.46875, 1, 0.501953, 1 )
+custom_colors/font_color_hover = Color( 0.46875, 1, 0.501953, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.0588236, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
