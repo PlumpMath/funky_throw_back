@@ -36,7 +36,7 @@ class IntroLevel:
 	
 	var move_time2 = 2
 	var move_playback_time2 = 1
-	var moves2 = [4, 4, 5, 5, 6]
+	var moves2 = [4, 4, 5, 5]
 	
 	var num_freestyle_moves2 = 6
 	var freestyle_time2 = 2

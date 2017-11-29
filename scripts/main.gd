@@ -45,9 +45,18 @@ func _ready():
 	player_spotlight.hide()
 	enemy_spotlight.hide()
 	
+	#load game
+	if scene_state.autoload_level != null && scene_state.autoload_stage != null:
+		current_level = scene_state.autoload_level
+		levels[current_level].current_stage = scene_state.autoload_stage
+	
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
 	
+	#DEBUG
+	#switch_state(freestyle_state, levels[current_level].get_current_stage())
+	
 	opp_character_animation.set_sprite(current_level)
+	opp_character_animation.enter()
 
 	self.set_process_input(true)
 	self.set_process(true)
@@ -64,7 +73,7 @@ func _restart_level():
 	if current_state != null:
 		current_state.exit(true)
 		current_state = null
-	levels[current_level].restart_level()	
+	#levels[current_level].restart_level()	
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
 
 func _reset_input_timeout():
@@ -79,8 +88,11 @@ func _repeat_play_state_ended():
 func _freestyle_state_ended():
 	if !levels[current_level].advance_stage():
 		current_level += 1
+		opp_character_animation.exit()
 		opp_character_animation.set_sprite(current_level)
-		print('end of current play?')
+		opp_character_animation.enter()
+
+	_save_game(current_level, levels[current_level].current_stage)
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
 	
 func show_spotlight(light):
@@ -121,3 +133,16 @@ func _game_over():
 	add_child(game_over_container)
 	get_node('game_over/restart_button').connect('button_down', self, '_restart_level')
 	current_state = null
+	
+func _save_game(level, stage):
+	print('saving game...')
+	var save_data = {
+		level=level,
+		stage=stage
+	}
+	var savegame = File.new()
+	savegame.open('user://savegame.save', File.WRITE)
+	savegame.store_line(save_data.to_json())
+	savegame.close()
+	
+	

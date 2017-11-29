@@ -16,6 +16,13 @@ func up():
 
 func down():
 	animator.play('down')
+
+func enter():
+	animator.play('enter')
+
+func exit():
+	animator.play('exit')	
 	
 func _return_to_idle():
-	animator.play('idle')	
+	animator.play('idle')
+	

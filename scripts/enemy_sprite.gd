@@ -1,5 +1,11 @@
 extends 'res://scripts/character_animation.gd'
 
+var entering
+var exiting
+
+export var present_x = 806
+export var outside_x = 1224
+
 onready var enemy_scenes = [
 	load('res://scenes/subscenes/enemy1.tscn'),
 	load('res://scenes/subscenes/enemy2.tscn'),
@@ -14,3 +20,4 @@ func set_sprite(num):
 	
 	animator = new_enemy.get_node('./AnimationPlayer')
 	animator.connect("finished", self, '_return_to_idle')
+	

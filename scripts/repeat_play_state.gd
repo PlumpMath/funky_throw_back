@@ -71,6 +71,7 @@ func exit(skip_signal):
 	
 func input(event):
 	if current_state == states.USER_REPEAT and  event.type == InputEvent.KEY:
+
 		var current_input = ""
 		if event.is_action_released('ui_up'):
 			current_input = "up"
