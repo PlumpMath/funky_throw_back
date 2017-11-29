@@ -131,7 +131,8 @@ func play_direction(character, direction):
 func _game_over():
 	game_over_container = game_over_res.instance()
 	add_child(game_over_container)
-	get_node('game_over/restart_button').connect('button_down', self, '_restart_level')
+	get_node('game_over/restart_button').connect('button_up', self, '_restart_level')
+	get_node('game_over/menu_button').connect('button_up', self, '_goto_menu')
 	current_state = null
 	
 func _save_game(level, stage):
@@ -145,4 +146,5 @@ func _save_game(level, stage):
 	savegame.store_line(save_data.to_json())
 	savegame.close()
 	
-	
+func _goto_menu():
+	get_tree().change_scene('res://scenes/Menu.tscn')

@@ -4,7 +4,7 @@
 [ext_resource path="res://images/ui.png" type="Texture" id=2]
 [ext_resource path="res://fonts/button.tres" type="DynamicFont" id=3]
 
-[sub_resource type="StyleBoxTexture" id=14]
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -22,7 +22,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=13]
+[sub_resource type="StyleBoxTexture" id=2]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -53,10 +53,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 257.0
-margin/top = 108.0
-margin/right = 6.0
-margin/bottom = 42.0
+margin/left = 252.0
+margin/top = 210.0
+margin/right = 1.0
+margin/bottom = 144.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode/enabled = true
 bbcode/bbcode = "[center]GAME OVER[/center]"
@@ -69,15 +69,15 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 367.0
-margin/top = 410.0
-margin/right = 656.0
-margin/bottom = 505.0
-custom_styles/hover = SubResource( 14 )
-custom_styles/pressed = SubResource( 14 )
-custom_styles/focus = SubResource( 13 )
-custom_styles/disabled = SubResource( 13 )
-custom_styles/normal = SubResource( 14 )
+margin/left = 370.0
+margin/top = 320.0
+margin/right = 659.0
+margin/bottom = 415.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_disabled = Color( 0.324219, 0.324219, 0.324219, 1 )
 custom_colors/font_color = Color( 0.46875, 1, 0.501953, 1 )
@@ -87,6 +87,32 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Restart"
+flat = false
+
+[node name="menu_button" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 370.0
+margin/top = 420.0
+margin/right = 659.0
+margin/bottom = 515.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color_disabled = Color( 0.324219, 0.324219, 0.324219, 1 )
+custom_colors/font_color = Color( 0.46875, 1, 0.501953, 1 )
+custom_colors/font_color_hover = Color( 0.46875, 1, 0.501953, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.0588236, 1 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Main Menu"
 flat = false
 
 
