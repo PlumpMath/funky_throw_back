@@ -1,5 +1,5 @@
 
-class Level1_5:
+class Level4_5:
 	const level_stage = preload('res://scripts/level_stage.gd').LevelStage
 	const info_level = true
 	const speaker_name = "UNKNOWN"
@@ -7,10 +7,11 @@ class Level1_5:
 	
 	#stage 1
 	var dialogue1 = [
-		"JUST THEN, DUE TO EXCESSIVE GROOVE...",
-		"THE YOUNG CHUMP WAS THROWN INTO THE FUTURE...",
-		"TO FIND HIMSELF IN THE SAME CLUB",
-		"HOW WILL HE FIND HIS WAY HOME?"
+		"WITH THAT, THE YOUNG CHUMP HAD PROVEN HIMSELF FOR ALL TIME",
+		"HIS SICK DANCE MOVES HAD ONCE AGAIN OPENED THE PORTAL",
+		"HE WAS BACK HOME TO TAKE THE THROWN AS...",
+		"RETRO TIME THROW BACK KING",
+		"(Congradulations and thank you for playing!)"
 	]
 	
 	

@@ -2,13 +2,15 @@ extends Node
 
 onready var main_character_animation = get_node('main_character')
 onready var opp_character_animation = get_node('opp_character')
-onready var player_spotlight = get_node('scene/player_spotlight')
-onready var enemy_spotlight = get_node('scene/enemy_spotlight')
+onready var player_spotlight = get_node('Node/scene/player_spotlight')
+onready var enemy_spotlight = get_node('Node/scene/enemy_spotlight')
 onready var arrow_controller = get_node('arrow_controller')
 onready var dialogue_state = get_node('states/dialogue_state')
 onready var repeat_play_state = get_node('states/play_repeat_state')
 onready var freestyle_state = get_node('states/freestyle_state')
 onready var game_over_res = preload('res://scenes/subscenes/game_over.tscn')
+onready var light_animation = get_node('Node/light_flash/AnimationPlayer')
+
 var game_over_container
 var current_state
 
@@ -21,10 +23,11 @@ export var current_level = 0
 func _ready():
 	levels = [
 		preload('intro_level.gd').IntroLevel.new(),
-		preload('level1_5.gd').Level1_5.new(),
+		preload('level1_5.gd').Level1_5.new().setup(light_animation),
 		preload('level2.gd').Level2.new(),
 		preload('level3.gd').Level3.new(),
-		preload('level4.gd').Level4.new()
+		preload('level4.gd').Level4.new(),
+		preload('level4_5.gd').Level4_5.new().setup(light_animation)
 	]
 	
 	dialogue_state.connect('input_received', self, '_reset_input_timeout')
@@ -87,6 +90,10 @@ func _dialogue_state_ended():
 	if levels[current_level].info_level:
 		#level is done now
 		current_level += 1
+		if current_level >= levels.size():
+			_goto_menu()
+			return
+
 		levels[current_level].get_current_stage().emit_signal('entry')
 		opp_character_animation.set_sprite(current_level)
 		opp_character_animation.enter()

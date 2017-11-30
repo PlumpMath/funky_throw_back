@@ -14,7 +14,7 @@ class Level4:
 	
 	var move_time1 = 2
 	var move_playback_time1 = 1
-	var moves1 = [5, 5, 5, 6, 6]
+	var moves1 = [5, 5, 5, 5, 5]
 	
 	var num_freestyle_moves1 = 8
 	var freestyle_time1 = 2
@@ -31,7 +31,7 @@ class Level4:
 	
 	var move_time2 = 2
 	var move_playback_time2 = 1
-	var moves2 = [7,7,7]
+	var moves2 = [6,6,6]
 	
 	var num_freestyle_moves2 = 12
 	var freestyle_time2 = 2
