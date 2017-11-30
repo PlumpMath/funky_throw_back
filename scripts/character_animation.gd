@@ -21,8 +21,17 @@ func enter():
 	animator.play('enter')
 
 func exit():
-	animator.play('exit')	
+	animator.play('exit')
 	
+func set_lightning(enable):
+	var lightning
+	lightning = get_node('./character/lightning/lightning1')
+	if lightning != null:
+		lightning.set_emitting(enable)
+	lightning = get_node('./character/lightning/lightning2')
+	if lightning != null:
+		lightning.set_emitting(enable)
+
 func _return_to_idle():
 	animator.play('idle')
 	

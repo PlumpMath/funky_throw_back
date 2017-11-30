@@ -5,7 +5,7 @@ signal exit
 var current_dialogue = -1
 var current_dialogue_char = -1
 var dialogues = []
-var enemy_name = ''
+var speaker_name = ''
 
 export var character_timer = 0.05
 var _active = false
@@ -24,7 +24,7 @@ func entry(stage):
 	_active = true
 	current_dialogue = -1
 	dialogues = stage.dialogue
-	enemy_name = stage.enemy_name
+	speaker_name = stage.speaker_name
 	dialogue_background.show()
 	_advance_dialogue()
 	
@@ -54,7 +54,7 @@ func _advance_dialogue():
 func _advance_dialogue_char():
 	if _active and current_dialogue_char < dialogues[current_dialogue].length():
 		current_dialogue_char += 1
-		var current_string = enemy_name + ': '
+		var current_string = speaker_name + ': '
 		for i in range(0, current_dialogue_char, 1):
 			current_string += dialogues[current_dialogue][i] 
 		dialogue_text.set_text(current_string)

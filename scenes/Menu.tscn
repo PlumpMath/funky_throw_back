@@ -1,16 +1,46 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
-[ext_resource path="res://images/ui.png" type="Texture" id=2]
-[ext_resource path="res://fonts/button.tres" type="DynamicFont" id=3]
+[ext_resource path="res://images/blank.png" type="Texture" id=2]
+[ext_resource path="res://scenes/subscenes/enemy3.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/spotlight.png" type="Texture" id=4]
+[ext_resource path="res://images/ui.png" type="Texture" id=5]
+[ext_resource path="res://fonts/button.tres" type="DynamicFont" id=6]
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="Animation" id=4]
+
+resource/name = "flow"
+length = 8.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:transform/rot")
+tracks/0/interp = 2
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 4 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 15.0, 60.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 5.4 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.724407, 0.129395, 0.828125, 0.562863 ), Color( 0.129395, 0.828125, 0.647984, 0.562863 ) ]
+}
+
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 region_rect = Rect2( 3, 1, 40, 19 )
 margin/left = 0.0
 margin/right = 0.0
@@ -28,7 +58,7 @@ content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
-texture = ExtResource( 2 )
+texture = ExtResource( 5 )
 region_rect = Rect2( 3, 20, 40, 19 )
 margin/left = 0.0
 margin/right = 0.0
@@ -40,12 +70,64 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="SampleLibrary" id=4]
+[sub_resource type="SampleLibrary" id=3]
 
 
 [node name="Node" type="Node"]
 
 script/script = ExtResource( 1 )
+
+[node name="bg" type="Sprite" parent="."]
+
+transform/scale = Vector2( 16.5625, 9.84375 )
+texture = ExtResource( 2 )
+centered = false
+modulate = Color( 0.105469, 0.105469, 0.105469, 1 )
+
+[node name="intro_dancer" type="Node2D" parent="."]
+
+transform/pos = Vector2( -110, -80 )
+
+[node name="character" parent="intro_dancer" instance=ExtResource( 3 )]
+
+[node name="Sprite" parent="intro_dancer/character"]
+
+transform/pos = Vector2( 750, 400 )
+transform/scale = Vector2( 10, 10 )
+frame = 1
+
+[node name="AnimationPlayer" parent="intro_dancer/character"]
+
+playback/speed = 0.6
+
+[node name="dance_timer" type="Timer" parent="intro_dancer"]
+
+process_mode = 1
+wait_time = 0.8
+one_shot = false
+autostart = true
+
+[node name="lights" type="Node" parent="intro_dancer"]
+
+[node name="Sprite" type="Sprite" parent="intro_dancer/lights"]
+
+transform/pos = Vector2( -10, -170 )
+transform/rot = 15.0317
+transform/scale = Vector2( 0.4, 0.6 )
+texture = ExtResource( 4 )
+centered = false
+modulate = Color( 0.710312, 0.145947, 0.823858, 0.562863 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="intro_dancer/lights"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/flow = SubResource( 4 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "flow"
 
 [node name="continue_button" type="Button" parent="."]
 
@@ -57,12 +139,12 @@ margin/left = 160.0
 margin/top = 250.0
 margin/right = 410.0
 margin/bottom = 350.0
-custom_styles/hover = SubResource( 3 )
-custom_styles/pressed = SubResource( 3 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/disabled = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_disabled = Color( 0.324219, 0.324219, 0.324219, 1 )
 custom_colors/font_color = Color( 0.46875, 1, 0.501953, 1 )
 custom_colors/font_color_hover = Color( 0.466667, 1, 0.498039, 1 )
@@ -83,12 +165,12 @@ margin/left = 160.0
 margin/top = 350.0
 margin/right = 410.0
 margin/bottom = 450.0
-custom_styles/hover = SubResource( 3 )
-custom_styles/pressed = SubResource( 3 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/disabled = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_disabled = Color( 0.324219, 0.324219, 0.324219, 1 )
 custom_colors/font_color = Color( 0.46875, 1, 0.501953, 1 )
 custom_colors/font_color_hover = Color( 0.46875, 1, 0.501953, 1 )
@@ -105,16 +187,16 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 160.0
-margin/top = 450.0
-margin/right = 410.0
-margin/bottom = 550.0
-custom_styles/hover = SubResource( 3 )
+margin/left = -510.0
+margin/top = 440.0
+margin/right = -260.0
+margin/bottom = 540.0
+custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/disabled = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
-custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_disabled = Color( 0.324219, 0.324219, 0.324219, 1 )
 custom_colors/font_color = Color( 0.46875, 1, 0.501953, 1 )
 custom_colors/font_color_hover = Color( 0.46875, 1, 0.501953, 1 )
@@ -134,7 +216,8 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 4 )
+config/samples = SubResource( 3 )
 config/pitch_random = 0.0
 
 
+[editable path="intro_dancer/character"]

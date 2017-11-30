@@ -3,7 +3,15 @@ extends Node
 onready var continue_button = get_node('continue_button')
 onready var newgame_button = get_node('newgame_button')
 
+onready var dance_timer = get_node('intro_dancer/dance_timer')
+onready var dancer_animation = get_node('intro_dancer/character/AnimationPlayer')
+
+var possible_moves = ['up', 'down', 'left', 'right']
+
 func _ready():
+	randomize()
+	dance_timer.connect("timeout", self, '_dancer_move')
+	
 	newgame_button.connect("button_up", self, "_new_game_button_press")
 	
 	var save_game = _load_save_data()
@@ -33,3 +41,7 @@ func _load_save_data():
 	save_data.parse_json(savegame.get_line())
 	savegame.close()
 	return save_data
+	
+func _dancer_move():
+	var move = possible_moves[rand_range(0, possible_moves.size())]
+	dancer_animation.play(move)

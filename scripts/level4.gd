@@ -2,8 +2,8 @@ extends Node
 
 class Level4:
 	const level_stage = preload('res://scripts/level_stage.gd').LevelStage
-	
-	const enemy_name = "OLD CHUMP"
+	const info_level = false
+	const speaker_name = "OLD CHUMP"
 	
 	#stage 1
 	var dialogue1 = [
@@ -19,7 +19,7 @@ class Level4:
 	var num_freestyle_moves1 = 8
 	var freestyle_time1 = 2
 	
-	var stage1 = level_stage.new().setup(dialogue1, move_time1, move_playback_time1, moves1, num_freestyle_moves1, freestyle_time1, enemy_name)
+	var stage1 = level_stage.new().setup(dialogue1, move_time1, move_playback_time1, moves1, num_freestyle_moves1, freestyle_time1, speaker_name)
 	
 	
 	#stage 2
@@ -36,7 +36,7 @@ class Level4:
 	var num_freestyle_moves2 = 12
 	var freestyle_time2 = 2
 	
-	var stage2 = level_stage.new().setup(dialogue2, move_time2, move_playback_time2, moves2, num_freestyle_moves2, freestyle_time2, enemy_name)
+	var stage2 = level_stage.new().setup(dialogue2, move_time2, move_playback_time2, moves2, num_freestyle_moves2, freestyle_time2, speaker_name)
 	
 	var current_stage = 0
 	var stages = [stage1, stage2]

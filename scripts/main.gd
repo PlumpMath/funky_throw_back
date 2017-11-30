@@ -21,6 +21,7 @@ export var current_level = 0
 func _ready():
 	levels = [
 		preload('intro_level.gd').IntroLevel.new(),
+		preload('level1_5.gd').Level1_5.new(),
 		preload('level2.gd').Level2.new(),
 		preload('level3.gd').Level3.new(),
 		preload('level4.gd').Level4.new()
@@ -51,13 +52,15 @@ func _ready():
 		current_level = scene_state.autoload_level
 		levels[current_level].current_stage = scene_state.autoload_stage
 	
+	levels[current_level].get_current_stage().emit_signal('entry')
 	switch_state(dialogue_state, levels[current_level].get_current_stage())
 	
 	#DEBUG
 	#switch_state(freestyle_state, levels[current_level].get_current_stage())
 	
-	opp_character_animation.set_sprite(current_level)
-	opp_character_animation.enter()
+	if !levels[current_level].info_level:
+		opp_character_animation.set_sprite(current_level)
+		opp_character_animation.enter()
 
 	self.set_process_input(true)
 	self.set_process(true)
@@ -81,6 +84,14 @@ func _reset_input_timeout():
 	current_input_timeout = 0
 
 func _dialogue_state_ended():
+	if levels[current_level].info_level:
+		#level is done now
+		current_level += 1
+		levels[current_level].get_current_stage().emit_signal('entry')
+		opp_character_animation.set_sprite(current_level)
+		opp_character_animation.enter()
+		switch_state(dialogue_state, levels[current_level].get_current_stage())
+		return
 	switch_state(repeat_play_state, levels[current_level].get_current_stage())
 	
 func _repeat_play_state_ended():
@@ -89,9 +100,11 @@ func _repeat_play_state_ended():
 func _freestyle_state_ended():
 	if !levels[current_level].advance_stage():
 		current_level += 1
+		levels[current_level].get_current_stage().emit_signal('entry')
 		opp_character_animation.exit()
-		opp_character_animation.set_sprite(current_level)
-		opp_character_animation.enter()
+		if !levels[current_level].info_level:
+			opp_character_animation.set_sprite(current_level)
+			opp_character_animation.enter()
 
 	_save_game(current_level, levels[current_level].current_stage)
 	switch_state(dialogue_state, levels[current_level].get_current_stage())

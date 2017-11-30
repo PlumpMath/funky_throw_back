@@ -8,6 +8,7 @@ export var outside_x = 1224
 
 onready var enemy_scenes = [
 	load('res://scenes/subscenes/enemy1.tscn'),
+	null,
 	load('res://scenes/subscenes/enemy2.tscn'),
 	load('res://scenes/subscenes/enemy3.tscn'),
 	load('res://scenes/subscenes/enemy4.tscn')
