@@ -7,6 +7,7 @@ onready var dance_timer = get_node('intro_dancer/dance_timer')
 onready var dancer_animation = get_node('intro_dancer/character/AnimationPlayer')
 
 var possible_moves = ['up', 'down', 'left', 'right']
+var last_move = ''
 
 func _ready():
 	randomize()
@@ -44,4 +45,11 @@ func _load_save_data():
 	
 func _dancer_move():
 	var move = possible_moves[rand_range(0, possible_moves.size())]
+	if last_move == move:
+		if move != 'down':
+			move = 'down'
+		else:
+			move = 'right'
+	
 	dancer_animation.play(move)
+	last_move = move

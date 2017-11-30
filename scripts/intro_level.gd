@@ -13,7 +13,7 @@ class IntroLevel:
 		"Well, chump? Why don\'t you say something?",
 		"OH I GET IT!",
 		"This dude thinks he\'s too good to talk to us.",
-		"Well you better GROOVE better thank you talk, CHUMP!"
+		"Well you better GROOVE better than you talk, CHUMP!"
 	]
 	
 	var move_time1 = 2

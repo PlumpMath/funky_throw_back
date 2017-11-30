@@ -20,4 +20,7 @@ func display_arrow(positionStr, direction):
 		
 	arrow.set_pos(position)
 	arrow.set_rot(rotation)
+	
+	arrow_display_animation.stop()
+	arrow_display_animation.seek(0)
 	arrow_display_animation.play("displayAnimation")
