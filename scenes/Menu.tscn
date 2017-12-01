@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=1]
 [ext_resource path="res://images/blank.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://images/spotlight.png" type="Texture" id=4]
 [ext_resource path="res://images/ui.png" type="Texture" id=5]
 [ext_resource path="res://fonts/button.tres" type="DynamicFont" id=6]
+[ext_resource path="res://fonts/header.tres" type="DynamicFont" id=7]
+[ext_resource path="res://audio/menu_music.wav" type="Sample" id=8]
+[ext_resource path="res://scripts/autoplay_music.gd" type="Script" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -92,6 +95,15 @@ draw_center = true
 
 [sub_resource type="SampleLibrary" id=4]
 
+
+[sub_resource type="SampleLibrary" id=5]
+
+samples/menu_music = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
+}
 
 [node name="Node" type="Node"]
 
@@ -248,6 +260,36 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 1
 config/samples = SubResource( 4 )
 config/pitch_random = 0.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 10.0
+margin/top = 70.0
+margin/right = 530.0
+margin/bottom = 260.0
+custom_fonts/normal_font = ExtResource( 7 )
+bbcode/enabled = true
+bbcode/bbcode = "[center]Retro Time[/center]
+[center]Throwback[/center]"
+visible_characters = -1
+percent_visible = 1.0
+
+[node name="SamplePlayer2D 2" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 5 )
+config/pitch_random = 0.0
+script/script = ExtResource( 9 )
+sound0 = "menu_music"
 
 
 [editable path="intro_dancer/character"]
